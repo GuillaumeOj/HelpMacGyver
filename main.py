@@ -1,33 +1,56 @@
 # -*- coding: utf-8 -*-
 """
-Author: GuillaumeOj
-Version: 0.0.1
+    Author: GuillaumeOj
+    Version: 0.0.1
 
-This is a maze game based on Python and using 'Pygame'
+    This is a maze game based on Python and using 'Pygame'
 
-The aim is to help McGyver to escape from a maze. The exit is kept by an evil bodyguard.
-To neutralize the guard, the player must pick up some items in the maze.
-If MacGyver meet the guardian without those items, he dies. Else, he completes the level.
-For moving MacGyver in the maze, the player use the arrows on her/his keyboard.
+    The aim is to help McGyver to escape from a maze. The exit is kept by an evil bodyguard.
+    To neutralize the guard, the player must pick up some items in the maze.
+    If MacGyver meet the guardian without those items, he dies. Else, he completes the level.
+    For moving MacGyver in the maze, the player use the arrows on her/his keyboard.
 
-This game is a project from OpenClassrooms: https://openclassrooms.com/fr/projects/156/assignment
+    This game is a project from OpenClassrooms:
+    - https://openclassrooms.com/fr/projects/156/assignment
 """
 import sys
+import os
+
 import pygame
 
-# Define the size of the screen
-SIZE = (350, 300) # 300*300 for the maze and 50*300 for the right side
+from src.maze import Maze
 
+FLOOR_SIZE = 30
+MAZE_SIZE = 15
+PANEL_SIZE = 100
+
+# Define the size of the screen
+SIZE = (MAZE_SIZE * FLOOR_SIZE + PANEL_SIZE, MAZE_SIZE * FLOOR_SIZE)
 
 def main():
     """
     Main part of the game is handle in this main function
     """
+
     pygame.init()
     # Hide the mouse because it's useless
     pygame.mouse.set_visible(False)
 
     pygame.display.set_mode(SIZE)
+
+    # =========================
+    # ==== CREATE THE MAZE ====
+
+    directory = os.path.dirname(__file__)
+
+    # Path to the level file
+    maze_level = os.path.join(directory, 'maps', 'level_1-1.txt')
+    # Path to the background file
+    maze_background = os.path.join(directory, 'ressources', 'background.png')
+
+    # Create the maze
+    maze = Maze(maze_level, maze_background)
+
     pygame.display.update()
 
     while 1:
