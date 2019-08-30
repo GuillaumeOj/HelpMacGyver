@@ -10,7 +10,7 @@ CELL_WIDTH = 30
 CELL_HEIGHT = 30
 MAZE_WIDTH = 15
 MAZE_HEIGHT = 15
-PANEL_WIDTH = 100
+PANEL_WIDTH = 200
 
 if __name__ == '__main__':
     print('Error, not the main file.')
