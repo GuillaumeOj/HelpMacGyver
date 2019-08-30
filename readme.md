@@ -15,11 +15,11 @@ This game is a project from OpenClassrooms: https://openclassrooms.com/fr/projec
 - [x] Generate the maze based on the level
 
 ## Characters
-- [ ] Create a **Character** class (usable for McGyver or the guardian)
-- [ ] Create the guardian
-- [ ] Place the guardian at the maze's exit
-- [ ] Create McGyver
-- [ ] Place McGyver at the maze's sart
+- [x] Create a **Character** class (usable for McGyver or the guardian)
+- [x] Create the guardian
+- [x] Place the guardian at the maze's exit
+- [x] Create McGyver
+- [x] Place McGyver at the maze's sart
 - [ ] Move McGyver with the keyboard's arrows
 - [ ] Collide McGyver with the maze's walls
 - [ ] McGyver win if he found the exit
