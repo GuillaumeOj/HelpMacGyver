@@ -33,6 +33,9 @@ def main():
     # Hide the mouse because it's useless
     pygame.mouse.set_visible(False)
 
+    # Set the window caption better than default
+    pygame.display.set_caption('== Help Mc gyver == V 0.0.1 ==')
+
     screen = pygame.display.set_mode(SCREEN_SIZE)
 
     # =========================
@@ -93,9 +96,13 @@ def main():
             # Blit the screen with the new position
             screen.blit(mc_gyver.image, mc_gyver.position)
 
+        # If the player reach the end of the maze he win
+        if mc_gyver.position == guardian.position:
+            sys.exit()
+
         pygame.display.update()
 
-        pygame.time.delay(100)
+        pygame.time.delay(75)
 
 if __name__ == '__main__':
     main()
