@@ -9,10 +9,10 @@ This game is a project from OpenClassrooms: https://openclassrooms.com/fr/projec
 # ToDo list
 ## Maze
 - [x] Create a first level in a ".txt" file
-- [ ] Create a **Maze** class
-- [ ] Read a level file
-- [ ] Create three maze textures (wall, floor and start/end)
-- [ ] Generate the maze based on the level
+- [x] Create a **Maze** class
+- [x] Read a level file
+- [x] Create four maze textures (wall, floor, start and end)
+- [x] Generate the maze based on the level
 
 ## Characters
 - [ ] Create a **Character** class (usable for McGyver or the guardian)
