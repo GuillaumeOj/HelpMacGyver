@@ -71,23 +71,24 @@ def main():
 
     while 1:
         # Handle events
+        key = pygame.key.get_pressed()
         for event in pygame.event.get():
             # If the player used the 'cross', the game closed
             if event.type == pygame.QUIT:
                 sys.exit()
             # If the player used the 'escape' key, the game closed
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            if key[pygame.K_ESCAPE]:
                 sys.exit()
 
         # If player press an arrow on keyboard, we move 'mc_gyver'
-        key = pygame.key.get_pressed()
-        if key:
+        if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
             # Erase the 'mc_gyver' position
             maze.erase_character(mc_gyver.position)
             screen.blit(maze.eraser, mc_gyver.position)
 
             # Move 'mc_gyver's' position
             mc_gyver.move(key)
+            mc_gyver.position = maze.detect_collision(mc_gyver.position, mc_gyver.next_position)
 
             # Blit the screen with the new position
             screen.blit(mc_gyver.image, mc_gyver.position)

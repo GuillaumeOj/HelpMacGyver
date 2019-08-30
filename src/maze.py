@@ -110,5 +110,21 @@ class Maze:
         """
         self.eraser.blit(self.maze_texture, (-position.left, -position.top))
 
+    def detect_collision(self, old_position, next_position):
+        """
+            Method for detecting collision
+        """
+
+        # Get next X and Y position in the maze to determine the nature (wall or floor ?)
+        next_x = next_position.left // CELL_WIDTH
+        next_y = next_position.top // CELL_HEIGHT
+
+        # Determine if the character can go to the next position
+        print(self.maze[next_y][next_x])
+        if self.maze[next_y][next_x] == '#':
+            next_position = old_position
+
+        return next_position
+
 if __name__ == '__main__':
     print('Error, not the main file.')
