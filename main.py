@@ -50,6 +50,23 @@ def main():
 
     screen.blit(maze.maze_texture, (0, 0))
 
+    # =========================
+    # = CREATE THE CHARACTERS =
+
+    # Path to the guardian file
+    guardian_image = os.path.join(directory, 'ressources', 'guardian.png')
+
+    # Create the guardian
+    guardian = src.Character(guardian_image, 'guardian', maze.maze)
+    screen.blit(guardian.image, guardian.position)
+
+    # Path to the guardian file
+    mc_gyver_image = os.path.join(directory, 'ressources', 'mc_gyver.png')
+
+    # Create the guardian
+    mc_gyver = src.Character(mc_gyver_image, 'mc_gyver', maze.maze)
+    screen.blit(mc_gyver.image, mc_gyver.position)
+
     pygame.display.update()
 
     while 1:
