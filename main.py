@@ -79,5 +79,22 @@ def main():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 sys.exit()
 
+        # If player press an arrow on keyboard, we move 'mc_gyver'
+        key = pygame.key.get_pressed()
+        if key:
+            # Erase the 'mc_gyver' position
+            maze.erase_character(mc_gyver.position)
+            screen.blit(maze.eraser, mc_gyver.position)
+
+            # Move 'mc_gyver's' position
+            mc_gyver.move(key)
+
+            # Blit the screen with the new position
+            screen.blit(mc_gyver.image, mc_gyver.position)
+
+        pygame.display.update()
+
+        pygame.time.delay(100)
+
 if __name__ == '__main__':
     main()

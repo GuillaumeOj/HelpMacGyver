@@ -28,6 +28,7 @@ class Maze:
             Create the maze structure
             Create the maze textures
             Create the maze background
+            Create a surface for erase a character
         """
 
         # Load the level '.txt' file and store it in a double list
@@ -92,6 +93,9 @@ class Maze:
 
                 self.maze_texture.blit(texture, texture_position)
 
+        # Create a surface for erase former mc_gyver position
+        self.eraser = pygame.Surface((CELL_WIDTH, CELL_HEIGHT))
+
     @staticmethod
     def transform_scale(surface, width, height):
         """
@@ -99,6 +103,12 @@ class Maze:
             to a new 'width' and a new 'height'
         """
         return pygame.transform.scale(surface, (width, height))
+
+    def erase_character(self, position):
+        """
+            Erase a character befor he move
+        """
+        self.eraser.blit(self.maze_texture, (-position.left, -position.top))
 
 if __name__ == '__main__':
     print('Error, not the main file.')

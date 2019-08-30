@@ -42,13 +42,15 @@ class Character:
         self.image = self.transform_scale(self.image, CELL_WIDTH, CELL_HEIGHT)
 
         # Find character position in the maze
-        self.position = (0, 0)
+        self.position = self.image.get_rect().move(0, 0)
         for row in maze:
             for column in row:
                 if role == 'guardian' and column == 'E':
-                    self.position = (row.index(column) * CELL_WIDTH, maze.index(row) * CELL_HEIGHT)
+                    self.position = self.position.move(row.index(column) * CELL_WIDTH,
+                                                       maze.index(row) * CELL_HEIGHT)
                 elif role == 'mc_gyver' and column == 'S':
-                    self.position = (row.index(column) * CELL_WIDTH, maze.index(row) * CELL_HEIGHT)
+                    self.position = self.position.move(row.index(column) * CELL_WIDTH,
+                                                       maze.index(row) * CELL_HEIGHT)
 
     @staticmethod
     def transform_scale(surface, width, height):
@@ -57,6 +59,19 @@ class Character:
             to a new 'width' and a new 'height'
         """
         return pygame.transform.scale(surface, (width, height))
+
+    def  move(self, key):
+        """
+            Method for moving mc_gyver
+        """
+        if key[pygame.K_DOWN] and self.position.bottom < (MAZE_HEIGHT * CELL_HEIGHT):
+            self.position = self.position.move(0, CELL_HEIGHT)
+        elif key[pygame.K_UP] and self.position.top > 0:
+            self.position = self.position.move(0, -CELL_HEIGHT)
+        elif key[pygame.K_RIGHT] and self.position.right < (MAZE_WIDTH * CELL_WIDTH):
+            self.position = self.position.move(CELL_WIDTH, 0)
+        elif key[pygame.K_LEFT] and self.position.left > 0:
+            self.position = self.position.move(-CELL_WIDTH, 0)
 
 if __name__ == '__main__':
     print('Error, not the main file.')
