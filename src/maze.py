@@ -120,7 +120,6 @@ class Maze:
         next_y = next_position.top // CELL_HEIGHT
 
         # Determine if the character can go to the next position
-        print(self.maze[next_y][next_x])
         if self.maze[next_y][next_x] == '#':
             next_position = old_position
 
