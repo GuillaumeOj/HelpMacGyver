@@ -18,16 +18,11 @@ import os
 
 import pygame
 
+from maze_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT, PANEL_WIDTH
 from src.maze import Maze
 
-CELL_WIDTH = 30
-CELL_HEIGHT = 30
-MAZE_WIDTH = 15
-MAZE_HEIGHT = 15
-PANEL_WIDTH = 100
-
 # Define the size of the screen
-SCREEN_SIZE = (MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT)
+SCREEN_SIZE = ((MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH), (MAZE_HEIGHT * CELL_HEIGHT))
 
 def main():
     """
@@ -38,7 +33,7 @@ def main():
     # Hide the mouse because it's useless
     pygame.mouse.set_visible(False)
 
-    pygame.display.set_mode(SCREEN_SIZE)
+    screen = pygame.display.set_mode(SCREEN_SIZE)
 
     # =========================
     # ==== CREATE THE MAZE ====
@@ -52,6 +47,8 @@ def main():
 
     # Create the maze
     maze = Maze(maze_level, maze_background)
+
+    screen.blit(maze.maze_texture, (0, 0))
 
     pygame.display.update()
 
