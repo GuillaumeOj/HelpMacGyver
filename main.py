@@ -18,11 +18,11 @@ import os
 
 import pygame
 
-from maze_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT, PANEL_WIDTH
-from src.maze import Maze
+import src
 
 # Define the size of the screen
-SCREEN_SIZE = ((MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH), (MAZE_HEIGHT * CELL_HEIGHT))
+SCREEN_SIZE = ((src.MAZE_WIDTH * src.CELL_WIDTH + src.PANEL_WIDTH),
+               (src.MAZE_HEIGHT * src.CELL_HEIGHT))
 
 def main():
     """
@@ -46,7 +46,7 @@ def main():
     maze_background = os.path.join(directory, 'ressources', 'background.png')
 
     # Create the maze
-    maze = Maze(maze_level, maze_background)
+    maze = src.Maze(maze_level, maze_background)
 
     screen.blit(maze.maze_texture, (0, 0))
 
