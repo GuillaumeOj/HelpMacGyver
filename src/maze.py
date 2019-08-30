@@ -10,7 +10,7 @@ import sys
 
 import pygame
 
-from main import CELL_WIDTH, CELL_HEIGHT
+from .maze_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT
 
 
 class Maze:
@@ -25,8 +25,23 @@ class Maze:
         """
             Read the level's file
             Create the maze structure
+            Create the maze textures
             Create the maze background
         """
+
+        # Load the level '.txt' file and store it in a double list
+        try:
+            with open(level, mode='r') as file:
+                # Read the file
+                data = file.read()
+
+                # Store the maze in a double list
+                self.maze = [list(row) for row in data.split('\n')]
+        except FileNotFoundError:
+            # If someone move or delete the file
+            print(f'{level} was not found')
+            sys.exit()
+
         # Load the 'backgrounds' ressource
         try:
             backgrounds = pygame.image.load(backgrounds)
@@ -52,21 +67,28 @@ class Maze:
 
         # Define texture for the end
         end = pygame.Surface((20, 20))
-        end.blit(backgrounds, (-20 * 4, -20 * 5))
+        end.blit(backgrounds, (-20 * 8, -20 * 1))
         end = self.transform_scale(end, CELL_WIDTH, CELL_HEIGHT)
 
-        # Load the level '.txt' file and store it in a double list
-        try:
-            with open(level, mode='r') as file:
-                # Read the file
-                data = file.read()
+        # Define the maze texture based on the level and the defined textures
+        self.maze_texture = pygame.Surface((MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT))
 
-                # Store the maze in a double list
-                self.maze = [list(row) for row in data.split('\n')]
-        except FileNotFoundError:
-            # If someone move or delete the file
-            print(f'{level} was not found')
-            sys.exit()
+        for y, row in enumerate(self.maze):
+            for x, column in enumerate(row):
+                # Which type of texture ?
+                if column == '#':
+                    texture = wall
+                elif column == ' ':
+                    texture = floor
+                elif column == 'S':
+                    texture = start
+                else:
+                    texture = end
+
+                # Which position in the maze ?
+                texture_position = (x * CELL_WIDTH, y * CELL_HEIGHT)
+
+                self.maze_texture.blit(texture, texture_position)
 
     @staticmethod
     def transform_scale(surface, width, height):
