@@ -4,7 +4,7 @@
     Version: 0.0.1
 
     Maze module for the McGyver game
-    It contain the classe 'Maze'
+    It contain the class 'Maze'
 """
 import sys
 
@@ -17,10 +17,11 @@ class Maze:
     """
         Maze class for create a maze
         Attributes:
-            - background
-            - structure
+            - self.maze
+            - self.maze_texture
     """
 
+# pylint: disable=too-many-locals
     def __init__(self, level, backgrounds):
         """
             Read the level's file
@@ -73,6 +74,7 @@ class Maze:
         # Define the maze texture based on the level and the defined textures
         self.maze_texture = pygame.Surface((MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT))
 
+        # pylint: disable=invalid-name
         for y, row in enumerate(self.maze):
             for x, column in enumerate(row):
                 # Which type of texture ?
