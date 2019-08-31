@@ -23,8 +23,8 @@ This game is a project from OpenClassrooms: https://openclassrooms.com/fr/projec
 - [x] Move McGyver with the keyboard's arrows
 - [x] Collide McGyver with the maze's walls
 - [x] McGyver win if he found the end
-- [ ] McGyver picks up the items (see "Items" below)
-- [ ] McGyver wins only if he goes to the exit with all items, else he dies.
+- [x] McGyver picks up the items (see "Items" below)
+- [x] McGyver wins only if he goes to the exit with all items, else he dies.
 
 ## Items
 - [x] Create an **Item** class

@@ -128,11 +128,20 @@ def main():
             mc_gyver.move(key)
             mc_gyver.position = maze.detect_collision(mc_gyver.position, mc_gyver.next_position)
 
+            # Check if mc_gyver is on an item
+            items = mc_gyver.pick_item(items)
+
             # Blit the screen with the new position
             screen.blit(mc_gyver.image, mc_gyver.position)
 
         # If the player reach the end of the maze he win
-        if mc_gyver.position == guardian.position:
+        if mc_gyver.position == guardian.position and items == []:
+            game_win = True
+            print('You win !')
+            sys.exit()
+        elif mc_gyver.position == guardian.position and items != []:
+            game_win = False
+            print('You loose !')
             sys.exit()
 
         pygame.display.update()

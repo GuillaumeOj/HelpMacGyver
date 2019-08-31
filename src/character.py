@@ -27,6 +27,7 @@ class Character:
             - 'image'
             - 'position'
             - 'next_position' => usefull only for moving mcgyver
+            - 'items' is the items picked up by mcgyver
         """
 
         # Load the image
@@ -47,6 +48,8 @@ class Character:
         self.position = self.image.get_rect().move(position)
         # Declare 'next_position' for 'move'
         self.next_position = self.position
+
+        self.items = list()
 
     @staticmethod
     def transform_scale(surface, width, height):
@@ -69,6 +72,16 @@ class Character:
             self.next_position = self.position.move(CELL_WIDTH, 0)
         elif key[pygame.K_LEFT] and self.position.left > 0:
             self.next_position = self.position.move(-CELL_WIDTH, 0)
+
+    def pick_item(self, items_list):
+        """
+            This method pick up items in the maze when mcgyver is in the same cell
+        """
+        for item in items_list:
+            if item.position == self.position:
+                self.items.append(items_list.pop(items_list.index(item)))
+
+        return items_list
 
 if __name__ == '__main__':
     print('Error, not the main file.')
