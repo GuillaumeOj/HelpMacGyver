@@ -30,7 +30,6 @@ This game is a project from OpenClassrooms: https://openclassrooms.com/fr/projec
 - [x] Create an **Item** class
 - [x] Generate three items (needle, plastic tube and ether)
 - [x] Place randomly the items in the maze
-- [ ] Erase an item when McGyver pick it up
 - [ ] List all items picked up by McGyver on the window's right side
 
 ## Panel
