@@ -18,11 +18,12 @@ import os
 
 import pygame
 
-import src
+# pylint: disable = wildcard-import
+from src import *
 
 # Define the size of the screen
-SCREEN_SIZE = ((src.MAZE_WIDTH * src.CELL_WIDTH + src.PANEL_WIDTH),
-               (src.MAZE_HEIGHT * src.CELL_HEIGHT))
+SCREEN_SIZE = ((MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH),
+               (MAZE_HEIGHT * CELL_HEIGHT))
 
 def main():
     """
@@ -49,7 +50,7 @@ def main():
     maze_background = os.path.join(directory, 'ressources', 'background.png')
 
     # Create the maze
-    maze = src.Maze(maze_level, maze_background)
+    maze = Maze(maze_level, maze_background)
 
     screen.blit(maze.maze_texture, (0, 0))
 
@@ -60,14 +61,14 @@ def main():
     guardian_image = os.path.join(directory, 'ressources', 'guardian.png')
 
     # Create the guardian
-    guardian = src.Character(guardian_image, 'guardian', maze.maze)
+    guardian = Character(guardian_image, maze.end_position)
     screen.blit(guardian.image, guardian.position)
 
-    # Path to the guardian file
+    # Path to Mc Gyver file
     mc_gyver_image = os.path.join(directory, 'ressources', 'mc_gyver.png')
 
-    # Create the guardian
-    mc_gyver = src.Character(mc_gyver_image, 'mc_gyver', maze.maze)
+    # Create Mc Gyver
+    mc_gyver = Character(mc_gyver_image, maze.start_position)
     screen.blit(mc_gyver.image, mc_gyver.position)
 
     pygame.display.update()

@@ -89,9 +89,14 @@ class Maze:
                     texture = end
 
                 # Which position in the maze ?
-                texture_position = (x * CELL_WIDTH, y * CELL_HEIGHT)
+                position = (x * CELL_WIDTH, y * CELL_HEIGHT)
 
-                self.maze_texture.blit(texture, texture_position)
+                self.maze_texture.blit(texture, position)
+
+                if texture == start:
+                    self.start_position = position
+                elif texture == end:
+                    self.end_position = position
 
         # Create a surface for erase former mc_gyver position
         self.eraser = pygame.Surface((CELL_WIDTH, CELL_HEIGHT))
