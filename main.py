@@ -15,6 +15,7 @@
 """
 import sys
 import os
+from random import randrange
 
 import pygame
 
@@ -70,6 +71,39 @@ def main():
     # Create Mc Gyver
     mc_gyver = Character(mc_gyver_image, maze.start_position)
     screen.blit(mc_gyver.image, mc_gyver.position)
+
+    # =========================
+    # ===== CREATE ITEMS ======
+
+    # Define possibles positions for items
+    items_positions = maze.floor_position
+
+    # Path to the needle file
+    needle_image = os.path.join(directory, 'ressources', 'needle.png')
+    # Random needle position
+    needle_position = items_positions.pop(randrange(len(items_positions)))
+    # Create the needle
+    needle = Item(needle_image, needle_position)
+
+    # Path to the ether file
+    ether_image = os.path.join(directory, 'ressources', 'ether.png')
+    # Random ether position
+    ether_position = items_positions.pop(randrange(len(items_positions)))
+    # Create the tube
+    ether = Item(ether_image, ether_position)
+
+    # Path to the tube file
+    tube_image = os.path.join(directory, 'ressources', 'plastic_tube.png')
+    # Random tube position
+    tube_position = items_positions.pop(randrange(len(items_positions)))
+    # Create the tube
+    tube = Item(tube_image, tube_position)
+
+    # List items
+    items = [needle, ether, tube]
+
+    for item in items:
+        screen.blit(item.image, item.position)
 
     pygame.display.update()
 

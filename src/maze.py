@@ -101,6 +101,16 @@ class Maze:
         # Create a surface for erase former mc_gyver position
         self.eraser = pygame.Surface((CELL_WIDTH, CELL_HEIGHT))
 
+    @property
+    def floor_position(self):
+        """
+            Return a list of floor's positions
+        """
+        positions = [(row.index(column) * CELL_WIDTH, self.maze.index(row) * CELL_HEIGHT)
+                     for row in self.maze for column in row if column == ' ']
+
+        return positions
+
     @staticmethod
     def transform_scale(surface, width, height):
         """
