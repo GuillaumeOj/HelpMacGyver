@@ -46,7 +46,6 @@ class Character:
 
         # Declare position, first on top/left
         self.position = self.image.get_rect().move(start_position)
-        print(self.position)
         # Declare 'next_position' for 'move'
         self.next_position = self.position
 

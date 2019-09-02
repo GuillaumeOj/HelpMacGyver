@@ -106,20 +106,20 @@ class Maze:
 
                 self.cells.append((texture, position, name))
 
-    def detect_collision(self, old_position, next_position):
+    def detect_collision(self, old_cell, next_cell):
         """
             Method for detecting collision
         """
 
         # Get next X and Y position in the maze to determine the nature (wall or floor ?)
-        next_x = next_position.left // CELL_WIDTH
-        next_y = next_position.top // CELL_HEIGHT
+        next_position = [cell for cell in self.cells if cell[1] == (next_cell.left, next_cell.top)]
+        next_position = next_position[0]
 
         # Determine if the character can go to the next position
-        if self.maze[next_y][next_x] == '#':
-            next_position = old_position
+        if next_position[2] == 'wall':
+            next_cell = old_cell
 
-        return next_position
+        return next_cell
 
 if __name__ == '__main__':
     print('Error, not the main file.')
