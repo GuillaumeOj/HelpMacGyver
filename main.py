@@ -47,6 +47,11 @@ def main():
         screen.blit(cells[0], cells[1])
 
     # =========================
+    # === CREATE THE PANEL ====
+    panel = Panel()
+    screen.blit(panel.background, panel.position)
+
+    # =========================
     # = CREATE THE CHARACTERS =
 
     # Create the guardian
