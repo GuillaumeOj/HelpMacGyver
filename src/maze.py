@@ -7,6 +7,7 @@
     It contain the class 'Maze'
 """
 import sys
+import os
 
 import pygame
 
@@ -22,7 +23,7 @@ class Maze:
     """
 
 # pylint: disable=too-many-locals
-    def __init__(self, level, backgrounds):
+    def __init__(self, level):
         """
             Read the level's file
             Create the maze structure
@@ -30,6 +31,8 @@ class Maze:
             Create the maze background
             Create a surface for erase a character
         """
+
+        level = os.path.join('maps', level)
 
         # Load the level '.txt' file and store it in a double list
         try:
@@ -44,32 +47,33 @@ class Maze:
             print(f'{level} was not found')
             sys.exit()
 
-        # Load the 'backgrounds' ressource
+        # Load the 'background' ressource
+        background = os.path.join('ressources', 'background.png')
         try:
-            backgrounds = pygame.image.load(backgrounds)
+            background = pygame.image.load(background)
         except pygame.error:
             # If someone move or delete the file
-            print(f'{backgrounds} was not found')
+            print(f'{background} was not found')
             sys.exit()
 
         # Define texture for the walls
         wall = pygame.Surface((20, 20))
-        wall.blit(backgrounds, (-20 * 9, 0))
+        wall.blit(background, (-20 * 9, 0))
         wall = self.transform_scale(wall, CELL_WIDTH, CELL_HEIGHT)
 
         # Define texture for the floor
         floor = pygame.Surface((20, 20))
-        floor.blit(backgrounds, (0, -20 * 4))
+        floor.blit(background, (0, -20 * 4))
         floor = self.transform_scale(floor, CELL_WIDTH, CELL_HEIGHT)
 
         # Define texture for the start
         start = pygame.Surface((20, 20))
-        start.blit(backgrounds, (-20 * 4, -20 * 5))
+        start.blit(background, (-20 * 4, -20 * 5))
         start = self.transform_scale(start, CELL_WIDTH, CELL_HEIGHT)
 
         # Define texture for the end
         end = pygame.Surface((20, 20))
-        end.blit(backgrounds, (-20 * 8, -20 * 1))
+        end.blit(background, (-20 * 8, -20 * 1))
         end = self.transform_scale(end, CELL_WIDTH, CELL_HEIGHT)
 
         # Define the maze texture based on the level and the defined textures

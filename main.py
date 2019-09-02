@@ -43,20 +43,14 @@ def main():
     # =========================
     # ==== CREATE THE MAZE ====
 
-    directory = os.path.dirname(__file__)
-
-    # Path to the level file
-    maze_level = os.path.join(directory, 'maps', 'level_1-1.txt')
-    # Path to the background file
-    maze_background = os.path.join(directory, 'ressources', 'background.png')
-
     # Create the maze
-    maze = Maze(maze_level, maze_background)
-
+    maze = Maze('level_1-1.txt')
     screen.blit(maze.maze_texture, (0, 0))
 
     # =========================
     # = CREATE THE CHARACTERS =
+
+    directory = os.path.dirname(__file__)
 
     # Path to the guardian file
     guardian_image = os.path.join(directory, 'ressources', 'guardian.png')
