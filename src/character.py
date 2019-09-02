@@ -7,6 +7,7 @@
     It contain the class 'Character'
 """
 import sys
+import os
 
 import pygame
 
@@ -21,7 +22,7 @@ class Character:
             - self.position
     """
 
-    def __init__(self, character_src, position):
+    def __init__(self, image, position):
         """
             Create each Attributes for the object:
             - 'image'
@@ -31,18 +32,17 @@ class Character:
         """
 
         # Load the image
+        image = os.path.join('ressources', image)
         try:
-            image_src = pygame.image.load(character_src)
+            self.image = pygame.image.load(image)
         except pygame.error:
             # If someone move or delete the file
-            print(f'{character_src} was not found')
+            print(f'{image} was not found')
             sys.exit()
-        image_dim = image_src.get_rect()
 
         # Create 'image' with transparency
-        self.image = pygame.Surface((image_dim.width, image_dim.height), pygame.SRCALPHA, 32)
-        self.image.blit(image_src, (0, 0))
-        self.image = self.transform_scale(self.image, CELL_WIDTH, CELL_HEIGHT)
+        self.image.set_colorkey((0, 0, 0))
+        self.image = pygame.transform.scale(self.image, (CELL_WIDTH, CELL_HEIGHT))
 
         # Declare position, first on top/left
         self.position = self.image.get_rect().move(position)
@@ -50,14 +50,6 @@ class Character:
         self.next_position = self.position
 
         self.items = list()
-
-    @staticmethod
-    def transform_scale(surface, width, height):
-        """
-            Just transform with 'scale' a 'surface'
-            to a new 'width' and a new 'height'
-        """
-        return pygame.transform.scale(surface, (width, height))
 
     def  move(self, key):
         """

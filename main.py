@@ -52,18 +52,12 @@ def main():
 
     directory = os.path.dirname(__file__)
 
-    # Path to the guardian file
-    guardian_image = os.path.join(directory, 'ressources', 'guardian.png')
-
     # Create the guardian
-    guardian = Character(guardian_image, maze.end_position)
+    guardian = Character('guardian.png', maze.end_position)
     screen.blit(guardian.image, guardian.position)
 
-    # Path to Mc Gyver file
-    mc_gyver_image = os.path.join(directory, 'ressources', 'mc_gyver.png')
-
     # Create Mc Gyver
-    mc_gyver = Character(mc_gyver_image, maze.start_position)
+    mc_gyver = Character('mc_gyver.png', maze.start_position)
     screen.blit(mc_gyver.image, mc_gyver.position)
 
     # =========================
