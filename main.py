@@ -14,7 +14,6 @@
     - https://openclassrooms.com/fr/projects/156/assignment
 """
 import sys
-from random import randrange
 
 import pygame
 
@@ -44,7 +43,8 @@ def main():
 
     # Create the maze
     maze = Maze('level_1-1.txt')
-    screen.blit(maze.maze_texture, (0, 0))
+    for cells in maze.cells:
+        screen.blit(cells[0], cells[1])
 
     # =========================
     # = CREATE THE CHARACTERS =
@@ -60,27 +60,20 @@ def main():
     # =========================
     # ===== CREATE ITEMS ======
 
-    # Define possibles positions for items
-    items_positions = maze.floor_position
-
-    # Random needle position
-    needle_position = items_positions.pop(randrange(len(items_positions)))
     # Create the needle
-    Item('needle.png', needle_position)
+    Item('needle.png', maze.cells)
 
-    # Random ether position
-    ether_position = items_positions.pop(randrange(len(items_positions)))
     # Create the tube
-    Item('ether.png', ether_position)
+    Item('ether.png', maze.cells)
 
-    # Random tube position
-    tube_position = items_positions.pop(randrange(len(items_positions)))
     # Create the tube
-    Item('plastic_tube.png', tube_position)
+    Item('plastic_tube.png', maze.cells)
 
+    # Blit each item on the screen
     for item in Item.items:
         screen.blit(item.image, item.position)
 
+    # Update the screen
     pygame.display.update()
 
     while 1:
@@ -97,8 +90,9 @@ def main():
         # If player press an arrow on keyboard, we move 'mc_gyver'
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
             # Erase the 'mc_gyver' position
-            maze.erase_character(mc_gyver.position)
-            screen.blit(maze.eraser, mc_gyver.position)
+            for cell in maze.cells:
+                if cell[1] == (mc_gyver.position.left, mc_gyver.position.top):
+                    screen.blit(cell[0], cell[1])
 
             # Move 'mc_gyver's' position
             mc_gyver.move(key)

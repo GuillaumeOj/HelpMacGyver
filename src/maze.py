@@ -11,7 +11,7 @@ import os
 
 import pygame
 
-from .maze_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT
+from .maze_config import CELL_WIDTH, CELL_HEIGHT
 
 
 class Maze:
@@ -76,8 +76,8 @@ class Maze:
         end.blit(background, (-20 * 8, -20 * 1))
         end = pygame.transform.scale(end, (CELL_WIDTH, CELL_HEIGHT))
 
-        # Define the maze texture based on the level and the defined textures
-        self.maze_texture = pygame.Surface((MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT))
+        # Initialize a list of maze cells
+        self.cells = list()
 
         # pylint: disable=invalid-name
         for y, row in enumerate(self.maze):
@@ -85,41 +85,26 @@ class Maze:
                 # Which type of texture ?
                 if column == '#':
                     texture = wall
+                    name = 'wall'
                 elif column == ' ':
                     texture = floor
+                    name = 'floor'
                 elif column == 'S':
                     texture = start
+                    name = 'start'
                 else:
                     texture = end
+                    name = 'end'
 
                 # Which position in the maze ?
                 position = (x * CELL_WIDTH, y * CELL_HEIGHT)
-
-                self.maze_texture.blit(texture, position)
 
                 if texture == start:
                     self.start_position = position
                 elif texture == end:
                     self.end_position = position
 
-        # Create a surface for erase former mc_gyver position
-        self.eraser = pygame.Surface((CELL_WIDTH, CELL_HEIGHT))
-
-    @property
-    def floor_position(self):
-        """
-            Return a list of floor's positions
-        """
-        positions = [(row.index(column) * CELL_WIDTH, self.maze.index(row) * CELL_HEIGHT)
-                     for row in self.maze for column in row if column == ' ']
-
-        return positions
-
-    def erase_character(self, position):
-        """
-            Erase a character befor he move
-        """
-        self.eraser.blit(self.maze_texture, (-position.left, -position.top))
+                self.cells.append((texture, position, name))
 
     def detect_collision(self, old_position, next_position):
         """

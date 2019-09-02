@@ -8,6 +8,7 @@
 """
 import sys
 import os
+from random import randrange
 
 import pygame
 
@@ -23,7 +24,7 @@ class Item:
     # List of items
     items = list()
 
-    def __init__(self, image, position):
+    def __init__(self, image, maze_cells):
         """
             Create each attributes for the object:
             - 'name'
@@ -51,9 +52,36 @@ class Item:
         self.image = pygame.transform.scale(self.image, (CELL_WIDTH, CELL_HEIGHT))
 
         # Define item position
-        self.position = self.image.get_rect().move(position)
+        self.maze_cells = maze_cells
+
+        self.cell = self._find_position()
+
+        self.position = self.image.get_rect().move(self.cell[1])
 
         Item.items.append(self)
+
+    def _find_position(self):
+        """
+            Private method to find a position for each items
+        """
+
+        cell = False
+
+        # Keep only cells with floor
+        floor_cells = [cell for cell in self.maze_cells if cell[2] == 'floor']
+        while not cell:
+            cell = floor_cells[randrange(len(floor_cells))]
+
+            # If there already items stored we compare them
+            if Item.items:
+                for item in Item.items:
+                    # If its the same cell, we rand choose another one
+                    if cell == item.cell:
+                        cell = False
+
+        return cell
+
+
 
 if __name__ == '__main__':
     print('Error, not the main file.')
