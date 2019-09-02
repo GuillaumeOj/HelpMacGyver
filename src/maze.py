@@ -59,22 +59,22 @@ class Maze:
         # Define texture for the walls
         wall = pygame.Surface((20, 20))
         wall.blit(background, (-20 * 9, 0))
-        wall = self.transform_scale(wall, CELL_WIDTH, CELL_HEIGHT)
+        wall = pygame.transform.scale(wall, (CELL_WIDTH, CELL_HEIGHT))
 
         # Define texture for the floor
         floor = pygame.Surface((20, 20))
         floor.blit(background, (0, -20 * 4))
-        floor = self.transform_scale(floor, CELL_WIDTH, CELL_HEIGHT)
+        floor = pygame.transform.scale(floor, (CELL_WIDTH, CELL_HEIGHT))
 
         # Define texture for the start
         start = pygame.Surface((20, 20))
         start.blit(background, (-20 * 4, -20 * 5))
-        start = self.transform_scale(start, CELL_WIDTH, CELL_HEIGHT)
+        start = pygame.transform.scale(start, (CELL_WIDTH, CELL_HEIGHT))
 
         # Define texture for the end
         end = pygame.Surface((20, 20))
         end.blit(background, (-20 * 8, -20 * 1))
-        end = self.transform_scale(end, CELL_WIDTH, CELL_HEIGHT)
+        end = pygame.transform.scale(end, (CELL_WIDTH, CELL_HEIGHT))
 
         # Define the maze texture based on the level and the defined textures
         self.maze_texture = pygame.Surface((MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT))
@@ -114,14 +114,6 @@ class Maze:
                      for row in self.maze for column in row if column == ' ']
 
         return positions
-
-    @staticmethod
-    def transform_scale(surface, width, height):
-        """
-            Just transform with 'scale' a 'surface'
-            to a new 'width' and a new 'height'
-        """
-        return pygame.transform.scale(surface, (width, height))
 
     def erase_character(self, position):
         """
