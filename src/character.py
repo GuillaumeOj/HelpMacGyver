@@ -22,7 +22,7 @@ class Character:
             - self.position
     """
 
-    def __init__(self, image, position):
+    def __init__(self, image, start_position):
         """
             Create each Attributes for the object:
             - 'image'
@@ -45,7 +45,8 @@ class Character:
         self.image = pygame.transform.scale(self.image, (CELL_WIDTH, CELL_HEIGHT))
 
         # Declare position, first on top/left
-        self.position = self.image.get_rect().move(position)
+        self.position = self.image.get_rect().move(start_position)
+        print(self.position)
         # Declare 'next_position' for 'move'
         self.next_position = self.position
 
