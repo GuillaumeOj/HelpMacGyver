@@ -14,7 +14,6 @@
     - https://openclassrooms.com/fr/projects/156/assignment
 """
 import sys
-import os
 from random import randrange
 
 import pygame
@@ -50,8 +49,6 @@ def main():
     # =========================
     # = CREATE THE CHARACTERS =
 
-    directory = os.path.dirname(__file__)
-
     # Create the guardian
     guardian = Character('guardian.png', maze.end_position)
     screen.blit(guardian.image, guardian.position)
@@ -66,31 +63,22 @@ def main():
     # Define possibles positions for items
     items_positions = maze.floor_position
 
-    # Path to the needle file
-    needle_image = os.path.join(directory, 'ressources', 'needle.png')
     # Random needle position
     needle_position = items_positions.pop(randrange(len(items_positions)))
     # Create the needle
-    needle = Item(needle_image, needle_position)
+    Item('needle.png', needle_position)
 
-    # Path to the ether file
-    ether_image = os.path.join(directory, 'ressources', 'ether.png')
     # Random ether position
     ether_position = items_positions.pop(randrange(len(items_positions)))
     # Create the tube
-    ether = Item(ether_image, ether_position)
+    Item('ether.png', ether_position)
 
-    # Path to the tube file
-    tube_image = os.path.join(directory, 'ressources', 'plastic_tube.png')
     # Random tube position
     tube_position = items_positions.pop(randrange(len(items_positions)))
     # Create the tube
-    tube = Item(tube_image, tube_position)
+    Item('plastic_tube.png', tube_position)
 
-    # List items
-    items = [needle, ether, tube]
-
-    for item in items:
+    for item in Item.items:
         screen.blit(item.image, item.position)
 
     pygame.display.update()
@@ -117,17 +105,17 @@ def main():
             mc_gyver.position = maze.detect_collision(mc_gyver.position, mc_gyver.next_position)
 
             # Check if mc_gyver is on an item
-            items = mc_gyver.pick_item(items)
+            Item.items = mc_gyver.pick_item(Item.items)
 
             # Blit the screen with the new position
             screen.blit(mc_gyver.image, mc_gyver.position)
 
         # If the player reach the end of the maze he win
-        if mc_gyver.position == guardian.position and items == []:
+        if mc_gyver.position == guardian.position and Item.items == []:
             game_win = True
             print('You win !')
             sys.exit()
-        elif mc_gyver.position == guardian.position and items != []:
+        elif mc_gyver.position == guardian.position and Item.items != []:
             game_win = False
             print('You loose !')
             sys.exit()
