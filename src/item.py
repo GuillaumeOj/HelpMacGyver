@@ -14,7 +14,7 @@ import pygame
 
 from .maze_config import CELL_WIDTH, CELL_HEIGHT
 
-
+# pylint: disable=too-few-public-methods
 class Item:
     """
         Define an item in the game
@@ -54,9 +54,7 @@ class Item:
         # Define item position
         self.maze_cells = maze_cells
 
-        self.cell = self._find_position()
-
-        self.position = self.image.get_rect().move(self.cell[1])
+        self._find_position()
 
         Item.items.append(self)
 
@@ -65,21 +63,21 @@ class Item:
             Private method to find a position for each items
         """
 
-        cell = False
+        self.cell = False
 
         # Keep only cells with floor
-        floor_cells = [cell for cell in self.maze_cells if cell[2] == 'floor']
-        while not cell:
-            cell = floor_cells[randrange(len(floor_cells))]
+        self.maze_cells = [cell for cell in self.maze_cells if cell[2] == 'floor']
+        while not self.cell:
+            self.cell = self.maze_cells[randrange(len(self.maze_cells))]
 
             # If there already items stored we compare them
             if Item.items:
                 for item in Item.items:
                     # If its the same cell, we rand choose another one
-                    if cell == item.cell:
-                        cell = False
+                    if self.cell == item.cell:
+                        self.cell = False
 
-        return cell
+        self.position = self.image.get_rect().move(self.cell[1])
 
 
 
