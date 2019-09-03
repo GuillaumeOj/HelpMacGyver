@@ -92,12 +92,13 @@ def main():
             if key[pygame.K_ESCAPE]:
                 sys.exit()
 
+        # Erase the 'mc_gyver' position
+        for cell in maze.cells:
+            if cell[1] == (mc_gyver.position.left, mc_gyver.position.top):
+                screen.blit(cell[0], cell[1])
+
         # If player press an arrow on keyboard, we move 'mc_gyver'
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
-            # Erase the 'mc_gyver' position
-            for cell in maze.cells:
-                if cell[1] == (mc_gyver.position.left, mc_gyver.position.top):
-                    screen.blit(cell[0], cell[1])
 
             # Move 'mc_gyver's' position
             mc_gyver.move(key)
@@ -106,8 +107,13 @@ def main():
             # Check if mc_gyver is on an item
             Item.items = mc_gyver.pick_item(Item.items)
 
-            # Blit the screen with the new position
-            screen.blit(mc_gyver.image, mc_gyver.position)
+            # Store Mc Gyver items in the stuff
+            if mc_gyver.items != []:
+                panel.store_items(mc_gyver.items)
+            screen.blit(panel.background, panel.position)
+
+        # Blit the screen with the new position
+        screen.blit(mc_gyver.image, mc_gyver.position)
 
         # If the player reach the end of the maze he win
         if mc_gyver.position == guardian.position and Item.items == []:
@@ -121,7 +127,7 @@ def main():
 
         pygame.display.update()
 
-        pygame.time.delay(75)
+        pygame.time.delay(100)
 
 if __name__ == '__main__':
     main()

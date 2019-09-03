@@ -48,12 +48,15 @@ class Panel:
                                      STUFF_ROW * CELL_HEIGHT + residue * (STUFF_ROW - 1)))
         self.stuff.fill((159, 112, 76))
 
+        self.stuff_position = (residue, 50)
+
         # Create each slot
         for row in range(STUFF_ROW):
             for column in range(STUFF_COLUMN):
-                self._stuff_slot((column * (CELL_WIDTH + residue), (row * (CELL_HEIGHT + residue))))
+                self._stuff_slot((column * (CELL_WIDTH + residue),
+                                  row * (CELL_HEIGHT + residue)))
 
-        self.background.blit(self.stuff, (residue, 50))
+        self.background.blit(self.stuff, self.stuff_position)
 
     def _stuff_slot(self, position):
         """
@@ -65,7 +68,7 @@ class Panel:
         slot.fill((63, 45, 42))
 
         # Store the slot in a list
-        Panel.slots.append(slot)
+        Panel.slots.append((slot, position))
 
         # Blit the 'slot' with the 'background'
         self.stuff.blit(slot, position)
@@ -102,6 +105,18 @@ class Panel:
         self.background.blit(font, font_rect)
 
         pygame.font.quit()
+
+    def store_items(self, items):
+        """
+            Method called for store Mc Gyver items in the stuff
+        """
+        for number, item in enumerate(items):
+            position = Panel.slots[number][1]
+
+            position = (position[0] + self.stuff_position[0], position[1] + self.stuff_position[1])
+
+            self.background.blit(item.image, position)
+
 
 if __name__ == '__main__':
     print('Error, not the main file.')
