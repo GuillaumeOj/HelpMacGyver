@@ -30,12 +30,14 @@ This game is a project from OpenClassrooms: https://openclassrooms.com/fr/projec
 - [x] Create an **Item** class
 - [x] Generate three items (needle, plastic tube and ether)
 - [x] Place randomly the items in the maze
-- [ ] List all items picked up by McGyver on the window's right side
+- [x] List all items picked up by McGyver on the window's right side
 
 ## Panel
 - [x] Create a **Panel** class
 - [x] Generate a background for the panel
 - [x] Create area for the items picked up by Mc Gyver
-- [ ] Create area for the syringe when all items are picked up
-- [ ] Create area for a message when player win
-- [ ] Create two areas (like button) when the player wins and ask if he wants to play again
+
+### End window
+- [ ] Create a **end_window** in **Panel**
+- [ ] Show this "window" when the player win or loos (You Win ! / You Loose !)
+- [ ] Generate two buttons (Continue / End)
