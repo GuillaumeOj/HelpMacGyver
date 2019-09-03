@@ -33,9 +33,9 @@ This game is a project from OpenClassrooms: https://openclassrooms.com/fr/projec
 - [ ] List all items picked up by McGyver on the window's right side
 
 ## Panel
-- [ ] Create a **Panel** class
-- [ ] Generate a background for the panel
-- [ ] Create area for the items picked up by Mc Gyver
+- [x] Create a **Panel** class
+- [x] Generate a background for the panel
+- [x] Create area for the items picked up by Mc Gyver
 - [ ] Create area for the syringe when all items are picked up
 - [ ] Create area for a message when player win
 - [ ] Create two areas (like button) when the player wins and ask if he wants to play again
