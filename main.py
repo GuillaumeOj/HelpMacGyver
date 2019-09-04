@@ -51,7 +51,6 @@ def main():
 
     # =========================
     # = CREATE THE CHARACTERS =
-
     # Create the guardian
     guardian = Character('guardian.png', maze.end_position)
     screen.blit(guardian.image, guardian.position)
@@ -62,14 +61,8 @@ def main():
 
     # =========================
     # ===== CREATE ITEMS ======
-
-    # Create the needle
     Item('needle.png', maze.cells)
-
-    # Create the tube
     Item('ether.png', maze.cells)
-
-    # Create the tube
     Item('plastic_tube.png', maze.cells)
 
     # Blit each item on the screen
@@ -83,48 +76,43 @@ def main():
         # Handle events
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
-            # If the player used the 'cross', the game closed
-            if event.type == pygame.QUIT:
+            # If the player used the 'cross' or 'escape', the game closed
+            if event.type == pygame.QUIT or key[pygame.K_ESCAPE]:
                 sys.exit()
-            # If the player used the 'escape' key, the game closed
-            if key[pygame.K_ESCAPE]:
-                sys.exit()
-
-        # Erase the 'macgyver' position
-        for cell in maze.cells:
-            if cell[1] == (macgyver.position.left, macgyver.position.top):
-                screen.blit(cell[0], cell[1])
 
         # If player press an arrow on keyboard, we move 'macgyver'
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
+            # Erase 'macgyver's
+            for cell in maze.cells:
+                if cell[1] == (macgyver.position.left, macgyver.position.top):
+                    screen.blit(cell[0], cell[1])
 
-            # Move 'macgyver's' position
+            # Move macgyver's position
             macgyver.move(key)
             macgyver.position = maze.detect_collision(macgyver.position, macgyver.next_position)
 
             # Check if macgyver is on an item
             Item.items = macgyver.pick_item(Item.items)
 
-            # Store Mc Gyver items in the stuff
+            # Store macgyver items in the stuff
             if macgyver.items != []:
                 panel.store_items(macgyver.items)
             screen.blit(panel.background, panel.position)
 
-        # Blit the screen with the new position
-        screen.blit(macgyver.image, macgyver.position)
+            # Blit the screen with the new position
+            screen.blit(macgyver.image, macgyver.position)
 
         # If the player reach the end of the maze he win
         if macgyver.position == guardian.position and Item.items == []:
-            game_win = True
             print('You win !')
             sys.exit()
         elif macgyver.position == guardian.position and Item.items != []:
-            game_win = False
             print('You loose !')
             sys.exit()
 
         pygame.display.update()
 
+        # Used for mcgyver don't run in the maze
         pygame.time.delay(100)
 
 if __name__ == '__main__':
