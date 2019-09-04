@@ -6,6 +6,14 @@ For moving MacGyver in the maze, the player use the arrows on her/his keyboard.
 
 This game is a project from OpenClassrooms: https://openclassrooms.com/fr/projects/156/assignment
 
+# How it works ?
+It's the simple game you can play.
+You run **main.py** and use your arrows key to move Macgyver.
+You have to pick all items before reaching the maze's exit, otherwise you will die.
+
+# How to insall it ?
+Section underwritting
+
 # ToDo list
 ## Maze
 - [x] Create a first level in a ".txt" file
@@ -13,6 +21,7 @@ This game is a project from OpenClassrooms: https://openclassrooms.com/fr/projec
 - [x] Read a level file
 - [x] Create four maze textures (wall, floor, start and end)
 - [x] Generate the maze based on the level
+- [ ] Add 'erase' method when Macgyver move or when an item is picked up
 
 ## Characters
 - [x] Create a **Character** class (usable for McGyver or the guardian)
