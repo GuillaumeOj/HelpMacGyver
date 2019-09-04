@@ -1,7 +1,4 @@
 __pycache__
 *.pyc
-output/
-.*.swp
 .DS_Store
 env/*
-.idea/
