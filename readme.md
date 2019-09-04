@@ -21,7 +21,7 @@ Section underwritting
 - [x] Read a level file
 - [x] Create four maze textures (wall, floor, start and end)
 - [x] Generate the maze based on the level
-- [ ] Add 'erase' method when Macgyver move or when an item is picked up
+- [x] Add 'erase' method when Macgyver move or when an item is picked up
 
 ## Characters
 - [x] Create a **Character** class (usable for McGyver or the guardian)
@@ -48,5 +48,7 @@ Section underwritting
 
 ### End window
 - [ ] Create a **end_window** in **Panel**
-- [ ] Show this "window" when the player win or loos (You Win ! / You Loose !)
+- [ ] Show this "window" when the player win or lose and stop the game
 - [ ] Generate two buttons (Continue / End)
+- [ ] Stop the game if the player choose 'End'
+- [ ] Restart the game if the player choose 'Continue'
