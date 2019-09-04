@@ -82,17 +82,21 @@ def main():
 
         # If player press an arrow on keyboard, we move 'macgyver'
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
-            # Erase 'macgyver's
-            for cell in maze.cells:
-                if cell['position'] == (macgyver.position.left, macgyver.position.top):
-                    screen.blit(cell['texture'], cell['position'])
+
+            # Clean the old cell
+            clean_cell = maze.clean_cell(macgyver.position)
+            screen.blit(clean_cell['texture'], clean_cell['position'])
 
             # Move macgyver's position
             macgyver.move(key)
             macgyver.position = maze.detect_collision(macgyver.position, macgyver.next_position)
 
             # Check if macgyver is on an item
-            Item.items = macgyver.pick_item(Item.items)
+            macgyver.pick_item(Item.items)
+
+            # Clean the new cell (remove item when macgyver is ON the cell)
+            clean_cell = maze.clean_cell(macgyver.position)
+            screen.blit(clean_cell['texture'], clean_cell['position'])
 
             # Store macgyver items in the stuff
             if macgyver.items != []:

@@ -130,5 +130,16 @@ class Maze:
 
         return next_cell
 
+    def clean_cell(self, position):
+        """
+            Method for clean a cell at a specific position
+        """
+        for cell in self.cells:
+            if cell['position'] == (position.left, position.top):
+                cell_to_erase = cell
+
+        return cell_to_erase
+
+
 if __name__ == '__main__':
     print('Error, not the main file.')
