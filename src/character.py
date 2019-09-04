@@ -17,9 +17,6 @@ from .maze_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT
 class Character:
     """
         Define a character in the game
-        Attributes:
-            - self.image
-            - self.position
     """
 
     def __init__(self, image, start_position):
@@ -27,8 +24,8 @@ class Character:
             Create each Attributes for the object:
             - 'image'
             - 'position'
-            - 'next_position' => usefull only for moving mcgyver
-            - 'items' is the items picked up by mcgyver
+            - 'next_position' => usefull only for moving
+            - 'items' for all items picked up
         """
 
         # Load the image
@@ -53,8 +50,7 @@ class Character:
 
     def  move(self, key):
         """
-            Method for moving mcgyver in the maze
-            Define 'next_position' only if it's in the maze
+            Method for moving the character in the maze
         """
         if key[pygame.K_DOWN] and self.position.bottom < (MAZE_HEIGHT * CELL_HEIGHT):
             self.next_position = self.position.move(0, CELL_HEIGHT)
@@ -67,7 +63,7 @@ class Character:
 
     def pick_item(self, items_list):
         """
-            This method pick up items in the maze when mcgyver is in the same cell
+            This method pick up items in the maze when the character is in the same cell
         """
         for item in items_list:
             if item.position == self.position:
