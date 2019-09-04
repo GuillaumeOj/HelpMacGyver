@@ -12,9 +12,8 @@ import os
 import pygame
 
 # pylint: disable=wildcard-import
-from .maze_config import *
+from .maze_config import * # pylint: disable=unused-wildcard-import
 
-# pylint: disable=too-few-public-methods
 class Panel:
     """
         Configure and manage the right panel on th screen
@@ -68,7 +67,7 @@ class Panel:
         slot.fill((63, 45, 42))
 
         # Store the slot in a list
-        Panel.slots.append((slot, position))
+        Panel.slots.append({'texture': slot, 'position': position})
 
         # Blit the 'slot' with the 'background'
         self.stuff.blit(slot, position)
@@ -110,8 +109,8 @@ class Panel:
         """
             Method called for store Mc Gyver items in the stuff
         """
-        for number, item in enumerate(items):
-            position = Panel.slots[number][1]
+        for i, item in enumerate(items):
+            position = Panel.slots[i]['position']
 
             position = (position[0] + self.stuff_position[0], position[1] + self.stuff_position[1])
 
