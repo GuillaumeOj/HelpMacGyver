@@ -14,6 +14,7 @@ import pygame
 
 from .maze_config import CELL_WIDTH, CELL_HEIGHT
 
+# For now, there is no public methods for 'Item' so we disable warnings for pylint
 # pylint: disable=too-few-public-methods
 class Item:
     """
