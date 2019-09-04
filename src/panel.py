@@ -116,6 +116,14 @@ class Panel:
 
             self.background.blit(item.image, position)
 
+    def end_text(self, text):
+        """
+            Print a text in the panel
+        """
+        border_rect = self.background.get_rect()
+
+        self._create_font(text, 20, (border_rect.width / 2, MAZE_HEIGHT * CELL_HEIGHT / 2), True)
+
 
 if __name__ == '__main__':
     print('Error, not the main file.')

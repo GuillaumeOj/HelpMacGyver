@@ -101,18 +101,16 @@ def main():
             # Store macgyver items in the stuff
             if macgyver.items != []:
                 panel.store_items(macgyver.items)
-            screen.blit(panel.background, panel.position)
 
             # Blit the screen with the new position
             screen.blit(macgyver.image, macgyver.position)
 
         # If the player reach the end of the maze he win
         if macgyver.position == guardian.position and Item.items == []:
-            print('You win !')
-            sys.exit()
+            panel.end_text('You win !')
         elif macgyver.position == guardian.position and Item.items != []:
-            print('You loose !')
-            sys.exit()
+            panel.end_text('You lose !')
+        screen.blit(panel.background, panel.position)
 
         pygame.display.update()
 
