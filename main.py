@@ -41,8 +41,8 @@ def main():
     # =========================
     # ==== CREATE THE MAZE ====
     maze = Maze('level_1-1.txt')
-    for cells in maze.cells:
-        screen.blit(cells[0], cells[1])
+    for cell in maze.cells:
+        screen.blit(cell['texture'], cell['position'])
 
     # =========================
     # === CREATE THE PANEL ====
@@ -84,8 +84,8 @@ def main():
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
             # Erase 'macgyver's
             for cell in maze.cells:
-                if cell[1] == (macgyver.position.left, macgyver.position.top):
-                    screen.blit(cell[0], cell[1])
+                if cell['position'] == (macgyver.position.left, macgyver.position.top):
+                    screen.blit(cell['texture'], cell['position'])
 
             # Move macgyver's position
             macgyver.move(key)

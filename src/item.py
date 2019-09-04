@@ -66,7 +66,7 @@ class Item:
         self.cell = False
 
         # Keep only cells with floor
-        self.maze_cells = [cell for cell in self.maze_cells if cell[2] == 'floor']
+        self.maze_cells = [cell for cell in self.maze_cells if cell['name'] == 'floor']
         while not self.cell:
             self.cell = self.maze_cells[randrange(len(self.maze_cells))]
 
@@ -77,7 +77,7 @@ class Item:
                     if self.cell == item.cell:
                         self.cell = False
 
-        self.position = self.image.get_rect().move(self.cell[1])
+        self.position = self.image.get_rect().move(self.cell['position'])
 
 
 

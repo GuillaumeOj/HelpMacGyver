@@ -3,8 +3,8 @@
     Author: GuillaumeOj
     Version: 0.0.1
 
-    Maze module for the McGyver game
-    It contain the class 'Maze'
+    Maze module for the MacGyver game
+    It contain the class 'Maze' for creating a maze depends on a level file
 """
 import sys
 import os
@@ -22,7 +22,6 @@ class Maze:
             - self.maze_texture
     """
 
-# pylint: disable=too-many-locals
     def __init__(self, level):
         """
             Read the level's file
@@ -32,6 +31,7 @@ class Maze:
             Create a surface for erase a character
         """
 
+        # Path to the level file
         level = os.path.join('maps', level)
 
         # Load the level '.txt' file and store it in a double list
@@ -47,64 +47,72 @@ class Maze:
             print(f'{level} was not found')
             sys.exit()
 
-        # Load the 'background' ressource
-        background = os.path.join('ressources', 'background.png')
-        try:
-            background = pygame.image.load(background)
-        except pygame.error:
-            # If someone move or delete the file
-            print(f'{background} was not found')
-            sys.exit()
 
-        # Define texture for the walls
-        wall = pygame.Surface((20, 20))
-        wall.blit(background, (-20 * 9, 0))
-        wall = pygame.transform.scale(wall, (CELL_WIDTH, CELL_HEIGHT))
+        self.textures = dict()
 
-        # Define texture for the floor
-        floor = pygame.Surface((20, 20))
-        floor.blit(background, (0, -20 * 4))
-        floor = pygame.transform.scale(floor, (CELL_WIDTH, CELL_HEIGHT))
-
-        # Define texture for the start
-        start = pygame.Surface((20, 20))
-        start.blit(background, (-20 * 4, -20 * 5))
-        start = pygame.transform.scale(start, (CELL_WIDTH, CELL_HEIGHT))
-
-        # Define texture for the end
-        end = pygame.Surface((20, 20))
-        end.blit(background, (-20 * 8, -20 * 1))
-        end = pygame.transform.scale(end, (CELL_WIDTH, CELL_HEIGHT))
+        self._create_texture('wall', (-20 * 9, 0))
+        self._create_texture('floor', (0, -20 * 4))
+        self._create_texture('start', (-20 * 4, -20 * 5))
+        self._create_texture('end', (-20 * 8, -20 * 1))
 
         # Initialize a list of maze cells
         self.cells = list()
 
-        # pylint: disable=invalid-name
-        for y, row in enumerate(self.maze):
-            for x, column in enumerate(row):
+        self._generate_cells()
+
+        # Define start and end position
+        for cell in self.cells:
+            if cell['name'] == 'start':
+                self.start_position = cell['position']
+            elif cell['name'] == 'end':
+                self.end_position = cell['position']
+
+
+    def _create_texture(self, name, position):
+        """
+            Method for creating a texture for each part of the maze
+            It use a generic file
+            Each textures are stored in a dictionnary
+        """
+        # Load the 'background.png' ressource
+        source = os.path.join('ressources', 'background.png')
+        try:
+            source = pygame.image.load(source)
+        except pygame.error:
+            # If someone move or delete the file
+            print(f'{source} was not found')
+            sys.exit()
+
+
+        # Define a texture
+        texture = pygame.Surface((20, 20))
+        texture.blit(source, (position))
+        texture = pygame.transform.scale(texture, (CELL_WIDTH, CELL_HEIGHT))
+
+        self.textures[name] = texture
+
+    def _generate_cells(self):
+        """
+            This method generate all the maze's cells
+        """
+        for i, row in enumerate(self.maze):
+            for j, column in enumerate(row):
                 # Which type of texture ?
                 if column == '#':
-                    texture = wall
-                    name = 'wall'
+                    texture = 'wall'
                 elif column == ' ':
-                    texture = floor
-                    name = 'floor'
+                    texture = 'floor'
                 elif column == 'S':
-                    texture = start
-                    name = 'start'
+                    texture = 'start'
                 else:
-                    texture = end
-                    name = 'end'
+                    texture = 'end'
 
                 # Which position in the maze ?
-                position = (x * CELL_WIDTH, y * CELL_HEIGHT)
+                position = (j * CELL_WIDTH, i * CELL_HEIGHT)
 
-                if texture == start:
-                    self.start_position = position
-                elif texture == end:
-                    self.end_position = position
-
-                self.cells.append((texture, position, name))
+                self.cells.append({'name': texture,
+                                   'texture': self.textures[texture],
+                                   'position': position})
 
     def detect_collision(self, old_cell, next_cell):
         """
@@ -112,11 +120,12 @@ class Maze:
         """
 
         # Get next X and Y position in the maze to determine the nature (wall or floor ?)
-        next_position = [cell for cell in self.cells if cell[1] == (next_cell.left, next_cell.top)]
+        next_position = [cell for cell in self.cells
+                         if cell['position'] == (next_cell.left, next_cell.top)]
         next_position = next_position[0]
 
         # Determine if the character can go to the next position
-        if next_position[2] == 'wall':
+        if next_position['name'] == 'wall':
             next_cell = old_cell
 
         return next_cell
