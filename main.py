@@ -112,8 +112,8 @@ def main():
 
         pygame.display.update()
 
-        # Used for mcgyver don't run in the maze
-        pygame.time.delay(100)
+        # Used for macgyver don't run in the maze
+        pygame.time.delay(UPDATE_DELAY)
 
 if __name__ == '__main__':
     main()

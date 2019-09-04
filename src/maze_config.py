@@ -3,8 +3,11 @@
     Author: GuillaumeOj
     Version: 0.0.1
 
-    Configuration file for the maze constants
+    Configuration file for the maze's constants
 """
+
+# Configue the updating delay
+UPDATE_DELAY = 100
 
 # Configure the maze's cells dimensions
 CELL_WIDTH = 30
