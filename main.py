@@ -5,7 +5,7 @@
 
     This is a maze game based on Python and using 'Pygame'
 
-    The aim is to help McGyver to escape from a maze. The exit is kept by an evil bodyguard.
+    The aim is to help MacGyver to escape from a maze. The exit is kept by an evil bodyguard.
     To neutralize the guard, the player must pick up some items in the maze.
     If MacGyver meet the guardian without those items, he dies. Else, he completes the level.
     For moving MacGyver in the maze, the player use the arrows on her/his keyboard.
@@ -17,7 +17,7 @@ import sys
 
 import pygame
 
-# pylint: disable = wildcard-import
+# pylint: disable=wildcard-import
 from src import *
 
 # Define the size of the screen
@@ -40,8 +40,6 @@ def main():
 
     # =========================
     # ==== CREATE THE MAZE ====
-
-    # Create the maze
     maze = Maze('level_1-1.txt')
     for cells in maze.cells:
         screen.blit(cells[0], cells[1])
@@ -59,8 +57,8 @@ def main():
     screen.blit(guardian.image, guardian.position)
 
     # Create Mc Gyver
-    mc_gyver = Character('mc_gyver.png', maze.start_position)
-    screen.blit(mc_gyver.image, mc_gyver.position)
+    macgyver = Character('macgyver.png', maze.start_position)
+    screen.blit(macgyver.image, macgyver.position)
 
     # =========================
     # ===== CREATE ITEMS ======
@@ -81,7 +79,7 @@ def main():
     # Update the screen
     pygame.display.update()
 
-    while 1:
+    while True:
         # Handle events
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
@@ -92,35 +90,35 @@ def main():
             if key[pygame.K_ESCAPE]:
                 sys.exit()
 
-        # Erase the 'mc_gyver' position
+        # Erase the 'macgyver' position
         for cell in maze.cells:
-            if cell[1] == (mc_gyver.position.left, mc_gyver.position.top):
+            if cell[1] == (macgyver.position.left, macgyver.position.top):
                 screen.blit(cell[0], cell[1])
 
-        # If player press an arrow on keyboard, we move 'mc_gyver'
+        # If player press an arrow on keyboard, we move 'macgyver'
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
 
-            # Move 'mc_gyver's' position
-            mc_gyver.move(key)
-            mc_gyver.position = maze.detect_collision(mc_gyver.position, mc_gyver.next_position)
+            # Move 'macgyver's' position
+            macgyver.move(key)
+            macgyver.position = maze.detect_collision(macgyver.position, macgyver.next_position)
 
-            # Check if mc_gyver is on an item
-            Item.items = mc_gyver.pick_item(Item.items)
+            # Check if macgyver is on an item
+            Item.items = macgyver.pick_item(Item.items)
 
             # Store Mc Gyver items in the stuff
-            if mc_gyver.items != []:
-                panel.store_items(mc_gyver.items)
+            if macgyver.items != []:
+                panel.store_items(macgyver.items)
             screen.blit(panel.background, panel.position)
 
         # Blit the screen with the new position
-        screen.blit(mc_gyver.image, mc_gyver.position)
+        screen.blit(macgyver.image, macgyver.position)
 
         # If the player reach the end of the maze he win
-        if mc_gyver.position == guardian.position and Item.items == []:
+        if macgyver.position == guardian.position and Item.items == []:
             game_win = True
             print('You win !')
             sys.exit()
-        elif mc_gyver.position == guardian.position and Item.items != []:
+        elif macgyver.position == guardian.position and Item.items != []:
             game_win = False
             print('You loose !')
             sys.exit()
