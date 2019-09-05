@@ -35,8 +35,7 @@ def main():
     # =========================
     # ==== CREATE THE MAZE ====
     maze = Maze('level_1-1.txt')
-    for cell in maze.cells:
-        screen.blit(cell['texture'], cell['position'])
+    screen.blit(maze.background, maze.position)
 
     # =========================
     # === CREATE THE PANEL ====

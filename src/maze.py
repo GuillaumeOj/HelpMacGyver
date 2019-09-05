@@ -10,7 +10,7 @@ import os
 
 import pygame
 
-from .maze_config import CELL_WIDTH, CELL_HEIGHT
+from .maze_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT
 
 
 class Maze:
@@ -25,10 +25,15 @@ class Maze:
         """
             Read the level's file
             Create the maze structure
-            Create the maze textures
             Create the maze background
+            Create the maze position
+            Create the maze textures
             Create a surface for erase a character
         """
+
+        self.maze = list()
+        self.background = pygame.Surface((MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT))
+        self.position = (0, 0)
 
         # Path to the level file
         level = os.path.join('maps', level)
@@ -110,6 +115,7 @@ class Maze:
                 self.cells.append({'name': texture,
                                    'texture': self.textures[texture],
                                    'position': position})
+                self.background.blit(self.textures[texture], position)
 
     def detect_collision(self, old_cell, next_cell):
         """
