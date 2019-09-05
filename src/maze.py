@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-    Author: GuillaumeOj
-    Version: 0.0.1
-
     Maze module for the MacGyver game
     It contain the class 'Maze' for creating a maze depends on a level file
 """

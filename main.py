@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-    Author: GuillaumeOj
-    Version: 0.0.1
-
     This is a maze game based on Python and using 'Pygame'
 
     The aim is to help MacGyver to escape from a maze. The exit is kept by an evil bodyguard.

@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-    Author: GuillaumeOj
-    Version: 0.0.1
-
     Panel module for the McGyver game
     It contain the class 'Panel' for manage the panel on the right side
 """
