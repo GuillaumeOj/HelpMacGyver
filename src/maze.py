@@ -6,7 +6,6 @@
     Maze module for the MacGyver game
     It contain the class 'Maze' for creating a maze depends on a level file
 """
-import sys
 import os
 
 import pygame
@@ -45,7 +44,6 @@ class Maze:
         except FileNotFoundError:
             # If someone move or delete the file
             print(f'{level} was not found')
-            sys.exit()
 
 
         self.textures = dict()
@@ -81,7 +79,6 @@ class Maze:
         except pygame.error:
             # If someone move or delete the file
             print(f'{source} was not found')
-            sys.exit()
 
 
         # Define a texture

@@ -6,7 +6,6 @@
     Character module for the McGyver game
     It contain the class 'Character'
 """
-import sys
 import os
 
 import pygame
@@ -35,7 +34,6 @@ class Character:
         except pygame.error:
             # If someone move or delete the file
             print(f'{image} was not found')
-            sys.exit()
 
         # Create 'image' with transparency
         self.image.set_colorkey((0, 0, 0))

@@ -13,7 +13,6 @@
     This game is a project from OpenClassrooms:
     - https://openclassrooms.com/fr/projects/156/assignment
 """
-import sys
 
 import pygame
 
@@ -78,7 +77,7 @@ def main():
         for event in pygame.event.get():
             # If the player used the 'cross' or 'escape', the game closed
             if event.type == pygame.QUIT or key[pygame.K_ESCAPE]:
-                sys.exit()
+                return False
 
         # If player press an arrow on keyboard, we move 'macgyver'
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:

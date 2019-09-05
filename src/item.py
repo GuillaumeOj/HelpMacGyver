@@ -6,7 +6,6 @@
     Item module for the McGyver game
     It contain the class 'Item'
 """
-import sys
 import os
 from random import randrange
 
@@ -38,7 +37,6 @@ class Item:
         except pygame.error:
             # If someone move or delete the file
             print(f'{image} was not found')
-            sys.exit()
 
         # Create 'image' with transparency
         if 'ether' in image:

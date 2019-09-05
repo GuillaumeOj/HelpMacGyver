@@ -6,7 +6,6 @@
     Panel module for the McGyver game
     It contain the class 'Panel' for manage the panel on the right side
 """
-import sys
 import os
 
 import pygame
@@ -92,7 +91,6 @@ class Panel:
         except FileNotFoundError:
             # If someone move or delete the file
             print(f'{font_src} was not found')
-            sys.exit()
 
         # Render the font
         font = font.render(text, True, (100, 47, 35))
