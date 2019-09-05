@@ -72,7 +72,7 @@ class Item:
                     if self.cell == item.cell:
                         self.cell = False
 
-        self.position = self.image.get_rect().move(self.cell['position'])
+        self.position = self.cell['position']
 
 
 
