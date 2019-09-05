@@ -7,7 +7,7 @@
 """
 
 # Configue the updating delay
-UPDATE_DELAY = 100
+FPS = 60
 
 # Configure the maze's cells dimensions
 CELL_WIDTH = 30

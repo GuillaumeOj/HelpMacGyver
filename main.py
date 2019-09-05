@@ -24,6 +24,7 @@ def main():
     """
 
     pygame.init()
+    clock = pygame.time.Clock()
     # Hide the mouse because it's useless
     pygame.mouse.set_visible(False)
 
@@ -108,7 +109,7 @@ def main():
         pygame.display.update()
 
         # Used for macgyver don't run in the maze
-        pygame.time.delay(UPDATE_DELAY)
+        clock.tick(FPS)
 
 if __name__ == '__main__':
     main()
