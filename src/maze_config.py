@@ -24,5 +24,13 @@ SCREEN_SIZE = ((MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH),
 STUFF_ROW = 2
 STUFF_COLUMN = 3
 
+# Manage the character size
+CHARACTER_SIZE = (CELL_WIDTH - 5, CELL_HEIGHT - 5)
+
+# Manage the moving speed for the character
+MOVE_SPEED = 2
+
+print(MOVE_SPEED)
+
 if __name__ == '__main__':
     print('Error, not the main file.')

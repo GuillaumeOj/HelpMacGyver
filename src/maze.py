@@ -29,7 +29,7 @@ class Maze:
 
         self.maze = list()
         self.background = pygame.Surface((MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT))
-        self.position = (0, 0)
+        self.rect = self.background.get_rect()
 
         # Path to the level file
         level = os.path.join('maps', level)
@@ -62,9 +62,9 @@ class Maze:
         # Define start and end position
         for cell in self.cells:
             if cell['name'] == 'start':
-                self.start_position = cell['position']
+                self.start_rect = (cell['rect'])
             elif cell['name'] == 'end':
-                self.end_position = cell['position']
+                self.end_rect = (cell['rect'])
 
 
     def _create_texture(self, name, position):
@@ -106,38 +106,36 @@ class Maze:
                     texture = 'end'
 
                 # Which position in the maze ?
-                position = (j * CELL_WIDTH, i * CELL_HEIGHT)
+                cell_rect = pygame.Rect(j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT)
 
                 self.cells.append({'name': texture,
                                    'texture': self.textures[texture],
-                                   'position': position})
-                self.background.blit(self.textures[texture], position)
+                                   'rect': cell_rect})
+                self.background.blit(self.textures[texture], cell_rect.topleft)
 
-    def detect_collision(self, old_cell, next_cell):
+    def detect_collision(self, old_rect, next_rect):
         """
             Method for detecting collision
         """
 
         # Get next X and Y position in the maze to determine the nature (wall or floor ?)
-        next_position = [cell for cell in self.cells
-                         if cell['position'] == (next_cell.left, next_cell.top)]
-        next_position = next_position[0]
+        for cell in self.cells:
+            if cell['rect'].colliderect(next_rect) and cell['name'] == 'wall':
+                next_rect = old_rect
 
-        # Determine if the character can go to the next position
-        if next_position['name'] == 'wall':
-            next_cell = old_cell
+        return next_rect
 
-        return next_cell
-
-    def clean_cell(self, position):
+    def clean_cell(self, character):
         """
             Method for clean a cell at a specific position
         """
-        for cell in self.cells:
-            if cell['position'] == (position.left, position.top):
-                cell_to_erase = cell
+        cells_to_erase = list()
 
-        return cell_to_erase
+        for cell in self.cells:
+            if cell['rect'].colliderect(character.rect):
+                cells_to_erase.append(cell)
+
+        return cells_to_erase
 
 
 if __name__ == '__main__':

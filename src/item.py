@@ -49,6 +49,8 @@ class Item:
         # Define item position
         self.maze_cells = maze_cells
 
+        self.cell = False
+
         self._find_position()
 
         Item.items.append(self)
@@ -58,12 +60,12 @@ class Item:
             Private method to find a position for each items
         """
 
-        self.cell = False
-
-        # Keep only cells with floor
-        self.maze_cells = [cell for cell in self.maze_cells if cell['name'] == 'floor']
         while not self.cell:
             self.cell = self.maze_cells[randrange(len(self.maze_cells))]
+
+            # If the cell is'nt a floor
+            if self.cell['name'] != 'floor':
+                self.cell = False
 
             # If there already items stored we compare them
             if Item.items:
@@ -72,7 +74,8 @@ class Item:
                     if self.cell == item.cell:
                         self.cell = False
 
-        self.position = self.cell['position']
+
+        self.rect = self.cell['rect']
 
 
 

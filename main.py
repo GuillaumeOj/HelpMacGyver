@@ -32,7 +32,7 @@ def main():
     # =========================
     # ==== CREATE THE MAZE ====
     maze = Maze('level_1-1.txt')
-    screen.blit(maze.background, maze.position)
+    screen.blit(maze.background, maze.rect.topleft)
 
     # =========================
     # === CREATE THE PANEL ====
@@ -42,12 +42,12 @@ def main():
     # =========================
     # = CREATE THE CHARACTERS =
     # Create the guardian
-    guardian = Character('guardian.png', maze.end_position)
-    screen.blit(guardian.image, guardian.position)
+    guardian = Character('guardian.png', maze.end_rect)
+    screen.blit(guardian.image, guardian.rect.topleft)
 
     # Create Mc Gyver
-    macgyver = Character('macgyver.png', maze.start_position)
-    screen.blit(macgyver.image, macgyver.position)
+    macgyver = Character('macgyver.png', maze.start_rect)
+    screen.blit(macgyver.image, macgyver.rect.topleft)
 
     # =========================
     # ===== CREATE ITEMS ======
@@ -57,7 +57,7 @@ def main():
 
     # Blit each item on the screen
     for item in Item.items:
-        screen.blit(item.image, item.position)
+        screen.blit(item.image, item.rect.topleft)
 
     # Update the screen
     pygame.display.update()
@@ -74,32 +74,32 @@ def main():
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
 
             # Clean the old cell
-            clean_cell = maze.clean_cell(macgyver.position)
-            screen.blit(clean_cell['texture'], clean_cell['position'])
+            clean_cells = maze.clean_cell(macgyver)
+            for cell in clean_cells:
+                screen.blit(cell['texture'], cell['rect'].topleft)
 
             # Move macgyver's position
-            macgyver.move(key)
-            macgyver.position = maze.detect_collision(macgyver.position, macgyver.next_position)
+            macgyver.move(key, maze)
 
             # Check if macgyver is on an item
             macgyver.pick_item(Item.items)
 
             # Clean the new cell (remove item when macgyver is ON the cell)
-            clean_cell = maze.clean_cell(macgyver.position)
-            screen.blit(clean_cell['texture'], clean_cell['position'])
+            clean_cells = maze.clean_cell(macgyver)
+            for cell in clean_cells:
+                screen.blit(cell['texture'], cell['rect'].topleft)
 
             # Store macgyver items in the stuff
             if macgyver.items != []:
                 panel.store_items(macgyver.items)
-
-            # Blit the screen with the new position
-            screen.blit(macgyver.image, macgyver.position)
+            screen.blit(macgyver.image, macgyver.rect.topleft)
 
         # If the player reach the end of the maze he win
-        if macgyver.position == guardian.position and Item.items == []:
-            panel.end_text('You win !')
-        elif macgyver.position == guardian.position and Item.items != []:
-            panel.end_text('You lose !')
+        if macgyver.rect.collidepoint(guardian.rect.center):
+            if Item.items == []:
+                panel.end_text('You win !')
+            else:
+                panel.end_text('You lose !')
         screen.blit(panel.background, panel.position)
 
         pygame.display.update()
