@@ -20,6 +20,10 @@ MAZE_HEIGHT = 15
 # Configure the right panel width
 PANEL_WIDTH = 200
 
+# Define the size of the screen
+SCREEN_SIZE = ((MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH),
+               (MAZE_HEIGHT * CELL_HEIGHT))
+
 # Configure the stuff size
 STUFF_ROW = 2
 STUFF_COLUMN = 3

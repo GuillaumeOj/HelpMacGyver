@@ -16,16 +16,11 @@
 
 import pygame
 
-# pylint: disable=wildcard-import
-from src import *
-
-# Define the size of the screen
-SCREEN_SIZE = ((MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH),
-               (MAZE_HEIGHT * CELL_HEIGHT))
+from src import * # pylint: disable=wildcard-import, unused-wildcard-import
 
 def main():
     """
-    Main part of the game is handle in this main function
+    Main part of the game is in this main function
     """
 
     pygame.init()
