@@ -49,24 +49,22 @@ class Panel:
 
         self.background.blit(self.stuff, self.stuff_rect.topleft)
 
+        # Menu buttons
+        self.yep = False
+        self.nope = False
+
     def _stuff_slot(self, position):
         """
             This method create stuff slot for a  given 'position'
         """
 
         # Create a surface for the slot
-        slot = pygame.Surface((CELL_WIDTH, CELL_HEIGHT))
-        slot.fill((63, 45, 42))
-
-        slot_rect = slot.get_rect().move(position)
         slot = pygame.Rect(position, (CELL_WIDTH, CELL_HEIGHT))
 
         # Store the slot in a list
-        Panel.slots.append({'texture': slot, 'rect': slot_rect})
         Panel.slots.append(slot)
 
         # Blit the 'slot' with the 'background'
-        self.stuff.blit(slot, slot_rect.topleft)
         pygame.draw.rect(self.stuff, (63, 45, 42), slot)
 
 
@@ -106,10 +104,8 @@ class Panel:
             Method called for store Mc Gyver items in the stuff
         """
         for i, item in enumerate(items):
-            slot_rect = Panel.slots[i]['rect']
             slot = Panel.slots[i]
 
-            position = (slot_rect.x + self.stuff_rect.x, slot_rect.y + self.stuff_rect.y)
             position = (slot.x + self.stuff_rect.x, slot.y + self.stuff_rect.y)
 
             self.background.blit(item.image, position)
@@ -121,13 +117,29 @@ class Panel:
 
         self._create_font(text, 20, (self.rect.width / 2, self.rect.height / 2), True)
 
-    def end_menu(self):
+    def end_menu(self, screen):
         """
             Show a menu a the end of the game for asking the player
             if she/he wants to continue to play
         """
 
+        self._create_font('Continue ?', 20, (self.rect.width / 2, self.rect.height - 150), True)
 
+        # Create yes button
+        self.yep = pygame.Rect(self.rect.x + 10,
+                               self.rect.height - 100,
+                               self.rect.width - 20,
+                               30)
+        pygame.draw.rect(screen, (100, 47, 35), self.yep, 5)
+        self._create_font('Yes', 20, (self.rect.width / 2, self.rect.height - 85), True)
+
+        # Create no button
+        self.nope = pygame.Rect(self.rect.x + 10,
+                                self.rect.height - 60,
+                                self.rect.width - 20,
+                                30)
+        pygame.draw.rect(screen, (100, 47, 35), self.nope, 5)
+        self._create_font('No', 20, (self.rect.width / 2, self.rect.height - 45), True)
 
 if __name__ == '__main__':
     print('Error, not the main file.')

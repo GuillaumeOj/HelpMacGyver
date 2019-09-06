@@ -101,6 +101,8 @@ def main():
                 panel.end_text('You win !')
             else:
                 panel.end_text('You lose !')
+            screen.blit(panel.background, panel.rect.topleft)
+            panel.end_menu(screen)
 
         pygame.display.update()
 
