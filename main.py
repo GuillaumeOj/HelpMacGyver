@@ -14,9 +14,9 @@ import pygame
 
 from src import * # pylint: disable=wildcard-import, unused-wildcard-import
 
-def main():
+def start_game():
     """
-    Main part of the game is in this main function
+        This function allow to start the game at the begining
     """
 
     pygame.init()
@@ -52,6 +52,8 @@ def main():
 
     # =========================
     # ===== CREATE ITEMS ======
+    if Item.items:
+        del Item.items
     Item('needle.png', maze.cells)
     Item('ether.png', maze.cells)
     Item('plastic_tube.png', maze.cells)
@@ -63,7 +65,19 @@ def main():
     # Update the screen
     pygame.display.update()
 
+    return clock, mouse_position, screen, maze, panel, guardian, macgyver
+
+def main(): # pylint: disable=too-many-branches
+    """
+    Main part of the game is in this main function
+    """
+
+    game_new = True
+
     while True:
+        if game_new:
+            clock, mouse_position, screen, maze, panel, guardian, macgyver = start_game()
+            game_new = False
         # Handle events
         key = pygame.key.get_pressed()
         for event in pygame.event.get():
@@ -82,7 +96,6 @@ def main():
                 screen.blit(cell['texture'], cell['rect'].topleft)
 
             # Move macgyver's position
-            macgyver.move(key, maze)
             if macgyver.move_auth:
                 macgyver.move(key, maze)
 
