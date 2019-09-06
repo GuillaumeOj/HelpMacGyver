@@ -123,6 +123,13 @@ class Maze:
             if cell['rect'].colliderect(next_rect) and cell['name'] == 'wall':
                 next_rect = old_rect
 
+        if next_rect != old_rect:
+            for cell in self.cells:
+                if cell['rect'].colliderect(next_rect) and next_rect.top == old_rect.top:
+                    next_rect.top = cell['rect'].top + (cell['rect'].h - next_rect.h) / 2
+                elif cell['rect'].colliderect(next_rect) and next_rect.left == old_rect.left:
+                    next_rect.left = cell['rect'].left + (cell['rect'].w - next_rect.w) / 2
+
         return next_rect
 
     def clean_cell(self, character):
