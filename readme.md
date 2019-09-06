@@ -13,7 +13,7 @@ You have to pick all items before reaching the maze's exit, otherwise you will d
 
 # How to insall it ?
 1. Clone this repository on your computer. Run :
-```terminal
+```
 git clone git@github.com:GuillaumeOj/HelpMacGyver.git
 or
 git clone https://github.com/GuillaumeOj/HelpMacGyver.git
@@ -42,6 +42,7 @@ pip install -r requirements.txt
 ```
 python main.py
 ```
+6. Enjoy the game !
 
 # ToDo list
 ## Maze
