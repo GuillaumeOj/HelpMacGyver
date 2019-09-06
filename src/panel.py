@@ -27,14 +27,11 @@ class Panel:
         self.background = pygame.Surface((PANEL_WIDTH, CELL_HEIGHT * MAZE_HEIGHT))
         self.background.fill((159, 112, 76))
 
-        border_rect = self.background.get_rect()
+        self.rect = self.background.get_rect()
+        pygame.draw.rect(self.background, (100, 47, 35), self.rect, 10)
+        self.rect = self.rect.move(MAZE_WIDTH * CELL_WIDTH, 0)
 
-
-        pygame.draw.rect(self.background, (100, 47, 35), border_rect, 10)
-
-        self.position = (CELL_WIDTH * MAZE_WIDTH, 0)
-
-        self._create_font('Stuffs', 20, (border_rect.width / 2, 20), True)
+        self._create_font('Stuffs', 20, (self.rect.width / 2, 20), True)
 
         # Create a surface to stock all picked up items
         residue = (PANEL_WIDTH - STUFF_COLUMN * CELL_WIDTH) / (STUFF_COLUMN + 1)
@@ -42,7 +39,7 @@ class Panel:
                                      STUFF_ROW * CELL_HEIGHT + residue * (STUFF_ROW - 1)))
         self.stuff.fill((159, 112, 76))
 
-        self.stuff_position = (residue, 50)
+        self.stuff_rect = self.stuff.get_rect().move(residue, 50)
 
         # Create each slot
         for row in range(STUFF_ROW):
@@ -50,7 +47,7 @@ class Panel:
                 self._stuff_slot((column * (CELL_WIDTH + residue),
                                   row * (CELL_HEIGHT + residue)))
 
-        self.background.blit(self.stuff, self.stuff_position)
+        self.background.blit(self.stuff, self.stuff_rect.topleft)
 
     def _stuff_slot(self, position):
         """
@@ -61,11 +58,13 @@ class Panel:
         slot = pygame.Surface((CELL_WIDTH, CELL_HEIGHT))
         slot.fill((63, 45, 42))
 
+        slot_rect = slot.get_rect().move(position)
+
         # Store the slot in a list
-        Panel.slots.append({'texture': slot, 'position': position})
+        Panel.slots.append({'texture': slot, 'rect': slot_rect})
 
         # Blit the 'slot' with the 'background'
-        self.stuff.blit(slot, position)
+        self.stuff.blit(slot, slot_rect.topleft)
 
 
     def _create_font(self, text, size, position, center=False):
@@ -104,9 +103,9 @@ class Panel:
             Method called for store Mc Gyver items in the stuff
         """
         for i, item in enumerate(items):
-            position = Panel.slots[i]['position']
+            slot_rect = Panel.slots[i]['rect']
 
-            position = (position[0] + self.stuff_position[0], position[1] + self.stuff_position[1])
+            position = (slot_rect.x + self.stuff_rect.x, slot_rect.y + self.stuff_rect.y)
 
             self.background.blit(item.image, position)
 
@@ -114,9 +113,15 @@ class Panel:
         """
             Print a text in the panel
         """
-        border_rect = self.background.get_rect()
 
-        self._create_font(text, 20, (border_rect.width / 2, MAZE_HEIGHT * CELL_HEIGHT / 2), True)
+        self._create_font(text, 20, (self.rect.width / 2, self.rect.height / 2), True)
+
+    def end_menu(self):
+        """
+            Show a menu a the end of the game for asking the player
+            if she/he wants to continue to play
+        """
+
 
 
 if __name__ == '__main__':

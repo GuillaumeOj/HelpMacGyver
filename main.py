@@ -37,7 +37,7 @@ def main():
     # =========================
     # === CREATE THE PANEL ====
     panel = Panel()
-    screen.blit(panel.background, panel.position)
+    screen.blit(panel.background, panel.rect.topleft)
 
     # =========================
     # = CREATE THE CHARACTERS =
@@ -92,6 +92,7 @@ def main():
             # Store macgyver items in the stuff
             if macgyver.items != []:
                 panel.store_items(macgyver.items)
+                screen.blit(panel.background, panel.rect.topleft)
             screen.blit(macgyver.image, macgyver.rect.topleft)
 
         # If the player reach the end of the maze he win
@@ -100,7 +101,6 @@ def main():
                 panel.end_text('You win !')
             else:
                 panel.end_text('You lose !')
-        screen.blit(panel.background, panel.position)
 
         pygame.display.update()
 
