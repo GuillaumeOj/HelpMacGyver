@@ -59,12 +59,15 @@ class Panel:
         slot.fill((63, 45, 42))
 
         slot_rect = slot.get_rect().move(position)
+        slot = pygame.Rect(position, (CELL_WIDTH, CELL_HEIGHT))
 
         # Store the slot in a list
         Panel.slots.append({'texture': slot, 'rect': slot_rect})
+        Panel.slots.append(slot)
 
         # Blit the 'slot' with the 'background'
         self.stuff.blit(slot, slot_rect.topleft)
+        pygame.draw.rect(self.stuff, (63, 45, 42), slot)
 
 
     def _create_font(self, text, size, position, center=False):
@@ -104,8 +107,10 @@ class Panel:
         """
         for i, item in enumerate(items):
             slot_rect = Panel.slots[i]['rect']
+            slot = Panel.slots[i]
 
             position = (slot_rect.x + self.stuff_rect.x, slot_rect.y + self.stuff_rect.y)
+            position = (slot.x + self.stuff_rect.x, slot.y + self.stuff_rect.y)
 
             self.background.blit(item.image, position)
 
