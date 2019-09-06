@@ -23,6 +23,7 @@ def main():
     clock = pygame.time.Clock()
     # Hide the mouse because it's useless
     pygame.mouse.set_visible(False)
+    mouse_position = False
 
     # Set the window caption better than default
     pygame.display.set_caption('== Help Mc gyver == V 0.0.1 ==')
@@ -69,6 +70,8 @@ def main():
             # If the player used the 'cross' or 'escape', the game closed
             if event.type == pygame.QUIT or key[pygame.K_ESCAPE]:
                 return False
+            if panel.yep and panel.nope and event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_position = event.pos
 
         # If player press an arrow on keyboard, we move 'macgyver'
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
@@ -106,6 +109,13 @@ def main():
             macgyver.move_auth = False
             screen.blit(panel.background, panel.rect.topleft)
             panel.end_menu(screen)
+
+            pygame.mouse.set_visible(True)
+
+            if mouse_position and panel.yep.collidepoint(mouse_position):
+                game_new = True
+            if mouse_position and panel.nope.collidepoint(mouse_position):
+                return False
 
         pygame.display.update()
 
