@@ -3,7 +3,7 @@
 """
 
 # Configue the updating delay
-FPS = 60
+FPS = 10
 
 # Configure the maze's cells dimensions
 CELL_WIDTH = 30
@@ -25,12 +25,11 @@ STUFF_ROW = 2
 STUFF_COLUMN = 3
 
 # Manage the character size
-CHARACTER_SIZE = (CELL_WIDTH - 5, CELL_HEIGHT - 5)
+CHARACTER_SIZE = (CELL_WIDTH, CELL_HEIGHT)
 
 # Manage the moving speed for the character
-MOVE_SPEED = 2
-
-print(MOVE_SPEED)
+MOVE_SPEED_X = CELL_WIDTH
+MOVE_SPEED_Y = CELL_HEIGHT
 
 if __name__ == '__main__':
     print('Error, not the main file.')

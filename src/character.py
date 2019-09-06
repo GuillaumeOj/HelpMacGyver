@@ -44,24 +44,23 @@ class Character:
 
         self.items = list()
 
-        self.speed = MOVE_SPEED
-
     def  move(self, key, maze):
         """
             Method for moving the character in the maze
         """
-        if key[pygame.K_DOWN] and self.rect.bottom < (MAZE_HEIGHT * CELL_HEIGHT):
-            next_rect = self.rect.move(0, MOVE_SPEED)
-        elif key[pygame.K_UP] and self.rect.top > 0:
-            next_rect = self.rect.move(0, -MOVE_SPEED)
-        elif key[pygame.K_RIGHT] and self.rect.right < (MAZE_WIDTH * CELL_WIDTH):
-            next_rect = self.rect.move(MOVE_SPEED, 0)
-        elif key[pygame.K_LEFT] and self.rect.left > 0:
-            next_rect = self.rect.move(-MOVE_SPEED, 0)
-        else:
-            next_rect = self.rect
+        next_rect = False
 
-        self.rect = maze.detect_collision(self.rect, next_rect)
+        if key[pygame.K_DOWN] and self.rect.bottom < (MAZE_HEIGHT * CELL_HEIGHT):
+            next_rect = self.rect.move(0, MOVE_SPEED_Y)
+        elif key[pygame.K_UP] and self.rect.top > 0:
+            next_rect = self.rect.move(0, -MOVE_SPEED_Y)
+        elif key[pygame.K_RIGHT] and self.rect.right < (MAZE_WIDTH * CELL_WIDTH):
+            next_rect = self.rect.move(MOVE_SPEED_X, 0)
+        elif key[pygame.K_LEFT] and self.rect.left > 0:
+            next_rect = self.rect.move(-MOVE_SPEED_X, 0)
+
+        if next_rect:
+            self.rect = maze.detect_collision(self.rect, next_rect)
 
     def pick_item(self, items):
         """
