@@ -46,9 +46,9 @@ Section underwritting
 - [x] Generate a background for the panel
 - [x] Create area for the items picked up by Mc Gyver
 
-### End window
-- [ ] Create a **end_window** in **Panel**
-- [ ] Show this "window" when the player win or lose and stop the game
-- [ ] Generate two buttons (Continue / End)
-- [ ] Stop the game if the player choose 'End'
-- [ ] Restart the game if the player choose 'Continue'
+### End menu
+- [x] Create a **end_menu** in **Panel**
+- [x] Show this "menu" when the player win or lose and stop the game
+- [x] Generate two buttons (Yes / No)
+- [x] Stop the game if the player choose 'End'
+- [x] Restart the game if the player choose 'Continue'
