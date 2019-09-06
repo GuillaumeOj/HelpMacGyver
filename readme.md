@@ -12,7 +12,34 @@ You run **main.py** and use your arrows key to move Macgyver.
 You have to pick all items before reaching the maze's exit, otherwise you will die.
 
 # How to insall it ?
-Section underwritting
+1 - Clone this repository on your computer. Run :
+```
+git clone git@github.com:GuillaumeOj/HelpMacGyver.git
+or
+git clone https://github.com/GuillaumeOj/HelpMacGyver.git
+```
+2 - Create a virtual environement in your directory:
+```
+virtualenv -p python3 env
+
+or for PowerShell:
+virtualenv -p $env:python3 env
+```
+3 - Activate your virtual environement:
+```
+source env/bin/activate
+
+or for PowerShell:
+.env/scripts/activate.ps1
+```
+4 - Install `requirements.txt`:
+```
+pip install -r requirements.txt
+```
+5 - Run `main.py`:
+```
+python main.py
+```
 
 # ToDo list
 ## Maze
