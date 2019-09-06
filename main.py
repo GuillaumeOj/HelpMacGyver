@@ -80,6 +80,8 @@ def main():
 
             # Move macgyver's position
             macgyver.move(key, maze)
+            if macgyver.move_auth:
+                macgyver.move(key, maze)
 
             # Check if macgyver is on an item
             macgyver.pick_item(Item.items)
@@ -101,6 +103,7 @@ def main():
                 panel.end_text('You win !')
             else:
                 panel.end_text('You lose !')
+            macgyver.move_auth = False
             screen.blit(panel.background, panel.rect.topleft)
             panel.end_menu(screen)
 

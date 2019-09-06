@@ -44,6 +44,9 @@ class Character:
 
         self.items = list()
 
+        # Authorize the character to move
+        self.move_auth = True
+
     def  move(self, key, maze):
         """
             Method for moving the character in the maze
