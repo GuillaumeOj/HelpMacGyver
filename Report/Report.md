@@ -27,15 +27,43 @@ Dans le présent programme les versions utilisées sont :
 
 ## Dépôt
 L’ensemble du code source est hébergé sur la plateforme [GitHub](http://github.com). Le dépôt contenant ce code source est le suivant : https://github.com/GuillaumeOj/HelpMacGyver
-Pour récupérer ce code source, vous avez deux possibilités:
-1. En cliquant sur « Clone or download » vous pouvez télécharger l’ensemble du code source au format zip:
+Pour récupérer ce code source, il y a deux possibilités :
+1. En cliquant sur « Clone or download » on télécharge l’ensemble du code source au format zip que l'on décompresse dans un dossier de notre choix :
 ![Clone or Download source code](/img/CloneDownloadSourceCode.png)
-2. En utilisant le logiciel [Git](https://git-scm.com/) (voir l'[Aide](https://git-scm.com/doc) du logiciel). Dans votre console favorite, dirigez vous vers le dossier de destination du code source puis tapez la commande suivante:
+2. Ou en utilisant le logiciel [Git](https://git-scm.com/) (voir l'[Aide](https://git-scm.com/doc) du logiciel). Dans une console, on se dirige sur le dossier de destination du code source puis on tape la commande suivante:
 ```
 git clone git@github.com:GuillaumeOj/HelpMacGyver.git
-or
+ou
 git clone https://github.com/GuillaumeOj/HelpMacGyver.git
 ```
 
 ## Installation
-Une fois le code source récupéré vous allez pouvoir passer à l'installation des éléments nécessaires au bon fonctionnement du programme.
+Une fois le code source récupéré il reste l'installation du module `pygame`.
+Pour une bonne utilisation, il est conseillé d'utiliser un environnement virtuel tel que [Virtualenv](https://github.com/pypa/virtualenv) (voir la [documentation](https://virtualenv.pypa.io/en/latest/#)).
+Une fois que Vitualenv est installé, on se positionne sur le répertoire contenant le projet et on lance la commande suivante dans une console :
+```
+virtualenv -p python3 env
+```
+ou sur PowerShell:
+```powershell
+virtualenv -p $env:python3 env
+```
+Ensuite pour activer l'environnement virtuel on tape la commande suivante :
+```
+source env/bin/activate
+```
+ou sur PowerShell:
+```powershell
+.env/scripts/activate.ps1
+```
+Enfin, grâce au module `pip` on installe les modules nécessaires au fonctionnement du programme (*pygame*) :
+```
+pip install -r requirements.txt
+```
+
+## Exécution
+Pour exécuter le programme on lance la commande suivante dans une console :
+```
+python main.py
+```
+Toute les instructions d'installation sont récapitulées dans le fichier [readme.md](../readme.md) présent à la racine du code source.
