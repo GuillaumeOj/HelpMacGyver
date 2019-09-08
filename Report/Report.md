@@ -98,3 +98,14 @@ Au final, l'arborescence du jeu ressemble à ceci:
     - item.py
     - character.py
     - panel.py
+
+# Déroulement du programme
+## Phase d'initialisation
+Suite à l'exécution de `main.py`, les actions suivantes vont se dérouler :
+
+1. Initialisation de la bibliothèque `pygame` essentielle à la création de l'affichage du jeu et la gestion des événements utilisateurs.
+2. Génération et affichage du labyrinthe en se basant sur le fichier **.txt** préalablement écrit.
+3. Affichage du panneau d'affichage sur la droite du labyrinthe
+4. Création et placement des personnages à leurs places respectives (le gardien à la sortie et MacGyver au départ).
+5. Ensuite des objets sont générés et placés dans le labyrinthe. Le placement se fait aléatoirement grâce à l'utilisation du module `random` fourni avec Python.
+
