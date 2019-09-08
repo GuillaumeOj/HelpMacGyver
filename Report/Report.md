@@ -118,3 +118,10 @@ Les phases de mouvement enclenchent un certain nombre d'instructions :
 2. On calcul la nouvelle position du héros dans le labyrinthe et on s'assure qu'il est autorisé à se déplacer dans cette direction (que ce ne soit pas un mur par exemple).
 3. Sur la nouvelle position du personnage, on vérifie si un objet se trouve dans la cellule. Si il y en a un, on l'ajoute dans la besace du héros.
 4. On affiche MacGyver à sa nouvelle position
+
+## Fin du jeu
+Pour marquer la fin du jeu, le programme va vérifier que le joueur à atteint la sortie du labyrinthe. Deux cas de figure se présentent :
+1. Tous les objets ont étaient ramassés au cours de la partie, dans ce cas, le joueur à gagné.
+2. Ils restent des objets dans le plateau de jeu, le joueur à perdu.
+
+Dans les deux cas, un message de victoire / défaite apparait dans le menu de droite ainsi qu'un menu composé de deux boutons, proposant au joueur de continuer à jouer ou non.
