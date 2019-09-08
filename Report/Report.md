@@ -120,8 +120,8 @@ La phase de mouvement enclenche un certain nombre d'instructions :
 4. MacGyver est affiché à sa nouvelle position.
 
 ## Fin du jeu
-Pour marquer la fin du jeu, le programme va vérifier que le joueur à atteint la sortie du labyrinthe. Deux cas de figure se présentent :
-1. Tous les objets ont étaient ramassés au cours de la partie, dans ce cas, le joueur à gagné.
-2. Ils restent des objets dans le plateau de jeu, le joueur à perdu.
+Pour marquer la fin du jeu, le programme vérifie que la ou le joueu·r·se à atteint la sortie du labyrinthe. Deux cas de figure se présentent alors :
+1. Tous les objets sont ramassés au cours de la partie, dans ce cas, la ou le joueu·r·se gagne.
+2. Ils restent des objets dans le plateau de jeu, la ou le joueu·r·se perd.
 
-Dans les deux cas, un message de victoire / défaite apparait dans le menu de droite ainsi qu'un menu composé de deux boutons, proposant au joueur de continuer à jouer ou non.
+Dans les deux cas, un message de victoire / défaite apparait dans le panneau de droite ainsi qu'un menu composé de deux boutons. Ce menu propose de continuer à jouer ou non.
