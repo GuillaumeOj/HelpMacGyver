@@ -1,5 +1,8 @@
 # Table des matières
-1. [Présentaiton](#Présentation)
+1. [Présentation](#présentation)
+2. [Code source](#code-source)
+3. [Déroulement du jeu](#déroulement-du-jeu)
+4. [Bilan](#bilan)
 
 # Présentation
 Le but du projet est de réaliser un jeu de labyrinthe. La ou le joueu·r·se part d’un point de départ et doit arriver à la sortie du labyrinthe en ayant collecté un certain nombre d’objets sur son chemin afin de neutraliser le gardien situé à la sortie !
