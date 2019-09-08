@@ -78,7 +78,25 @@ La phase de mouvement enclenche un certain nombre d'instructions :
 
 ## Fin du jeu
 Pour marquer la fin du jeu, le programme vérifie que la ou le joueu·r·se à atteint la sortie du labyrinthe. Deux cas de figure se présentent alors :
+
 1. Tous les objets sont ramassés au cours de la partie, dans ce cas, la ou le joueu·r·se gagne.
 2. Ils restent des objets dans le plateau de jeu, la ou le joueu·r·se perd.
 
 Dans les deux cas, un message de victoire / défaite apparait dans le panneau de droite ainsi qu'un menu composé de deux boutons. Ce menu propose de continuer à jouer ou non.
+
+# Bilan
+Au cours de ce projet, j'ai surmonté plusieurs obstacles pour arriver au terme. Je liste par la suite trois d'entre eux, ceux qui m'ont paru les plus importants à retranscrire.
+
+## Pygame
+Le premier obstacle a été l'apprentissage de Pygame.
+Mon mentor m'a aiguillé au début sur un tutoriel permettant de faire bouger une image dans une fenêtre. Cet exercice m'a donné une bonne base de départ pour le labyrinthe.
+Cependant je me suis rapidement aperçu que les bases ne suffisaient pas pour, par exemple, gérer la collision d'un objet avec un autre, utiliser la souris pour agir sur l'écran, prendre en compte une touche de clavier enfoncée en continu, etc.
+Pour remédier à cela j'ai pris le temps d'approfondir la lecture de la documentation de la bibliothèque, je me suis inspiré de parties de codes réalisées par d'autres utilisateurs et j'ai fait des recherches sur des points précis (comment réaliser un bouton par exemple).
+
+## Limite de prestation
+Même si les instructions de l'énoncé sont assez claire, j'ai eu beaucoup de mal à m'arrêter dans la réalisation du jeu. En effet, je suis parti dans une sorte de folie des grandeurs et j'ai voulou ajouter beaucoup plus de fonctions que demandées.
+J'ai donc pris le temps de mettre à jour la To Do liste écrite dans le 'Readme.md' en m'accordant l'ajout de certaines fonctionnalités, telles que l'affichage des objets ramassés sur le côté et le menu de fin permettant de continuer à jouer.
+
+## Cohérence et propreté du code
+Pour finir, je suis en pleine phase d'apprentissage dans le développement en Python. Entre le début du projet, le milieu et la fin, j'ai appris et appliqué beaucoup de nouvelles connaissances et pratiques. Par conséquent, ma façon d'écrire et de commenter mon code à beaucoup évoluée en cours de projet.
+J'ai dû prendre des pauses pour relire les parties de codes déjà produites afin de m'assurer que l'ensemble est une certaine cohérence pour en faciliter la lecture ultérieure.
