@@ -70,4 +70,31 @@ Pour exécuter le programme on lance la commande suivante dans une console :
 ```
 python main.py
 ```
-Toute les instructions d'installation sont récapitulées dans le fichier [readme.md](../readme.md) présent à la racine du code source.
+Toute les instructions d'installation sont récapitulées dans le fichier [readme.md](../readme.md) présent à la racine du code source.Toute les instructions d'installation sont récapitulées dans le fichier [readme.md](../readme.md) présent à la racine du code source.
+
+# Découpage du programme
+Le programme est constitué d'un script principal, `main.py`, qui fait appel à un package `src`.
+Ce package contient plusieurs modules contenant chacun une classe utile pour le jeu. Les classes utilisées sont les suivantes:
+- `maze` permettant la création et la gestion du labyrinthe dans une fenêtre.
+- `character` utilisée pour la création de personnages (le gardien et MacGyver). Elle permet aussi de gérer le déplacement de celui-ci ainsi que le ramassage des objets.
+- `item` servant à la génération d'objets. Une méthode de la classe permet de placer aléatoirement les objets dans le labyrinthe.
+- `panel` qui est une classe "annexe" permettant l'affichage et la gestion du panneau situé à droite de la fenêtre de jeu (objets ramassés, message de victoire / défaite et menu de fin)
+
+Ces classes sont accompagnées d'un module de configuration du labyrinthe, `maze_config`. Ce module met à disposition des constantes (dimensions des cellules du labyrinthe, dimensions du labyrinte, vitesse de déplacement, etc.)
+
+Le fichier permettant de créer la structure du labyrinthe est stocké dans un répertoire `maps/` à la racine du projet. Ce fichier est nommé `level_1-1.txt`.
+
+Pour finir, les images utilisées au cours du jeu (textures du labyrinthe, personnages, objets) sont elles stockées dans le répertoire `ressources/`.
+
+Au final, l'arborescence du jeu ressemble à ceci:
+- main.py
+- maps/
+    - level_1-1.txt
+- ressources/
+    - ...
+- src/
+    - maze_config.py
+    - maze.py
+    - item.py
+    - character.py
+    - panel.py
