@@ -29,7 +29,9 @@ Dans le présent programme les versions utilisées sont :
 L’ensemble du code source est hébergé sur la plateforme [GitHub](http://github.com). Le dépôt contenant ce code source est le suivant : https://github.com/GuillaumeOj/HelpMacGyver
 Pour récupérer ce code source, il y a deux possibilités :
 1. En cliquant sur « Clone or download » on télécharge l’ensemble du code source au format zip que l'on décompresse dans un dossier de notre choix :
-![Clone or Download source code](/img/CloneDownloadSourceCode.png)
+
+![Clone or Download source code](img/CloneDownloadSourceCode.png)
+
 2. Ou en utilisant le logiciel [Git](https://git-scm.com/) (voir l'[Aide](https://git-scm.com/doc) du logiciel). Dans une console, on se dirige sur le dossier de destination du code source puis on tape la commande suivante:
 ```
 git clone git@github.com:GuillaumeOj/HelpMacGyver.git
