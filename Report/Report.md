@@ -113,11 +113,11 @@ Une fois ces premières étapes effectuées, le programme va surveiller et "capt
 - Lorsqu'elle ou il appuie sur `ESC` ou la croix de fermeture de la fenêtre, le jeu se ferme.
 - Lorsqu'elle ou il utilise les flêches directionnelles de son clavier, la mise en mouvement de MacGyver s'enclenchera.
 
-Les phases de mouvement enclenchent un certain nombre d'instructions :
-1. On efface MacGyver de son ancienne position
-2. On calcul la nouvelle position du héros dans le labyrinthe et on s'assure qu'il est autorisé à se déplacer dans cette direction (que ce ne soit pas un mur par exemple).
-3. Sur la nouvelle position du personnage, on vérifie si un objet se trouve dans la cellule. Si il y en a un, on l'ajoute dans la besace du héros.
-4. On affiche MacGyver à sa nouvelle position
+La phase de mouvement enclenche un certain nombre d'instructions :
+1. Effacement de MacGyver de son ancienne position
+2. Calcul de la nouvelle position du héros dans le labyrinthe et vérification qu'il est autorisé à se déplacer dans cette direction (que ce ne soit pas un mur par exemple).
+3. Sur la nouvelle position du personnage, vérification de la présence d'un objet. Si il y en a un, il est ajouté à la liste des objets du héros.
+4. MacGyver est affiché à sa nouvelle position.
 
 ## Fin du jeu
 Pour marquer la fin du jeu, le programme va vérifier que le joueur à atteint la sortie du labyrinthe. Deux cas de figure se présentent :
