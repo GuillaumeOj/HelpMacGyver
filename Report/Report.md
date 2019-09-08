@@ -23,54 +23,11 @@ Dans le présent programme les versions utilisées sont :
 - Python 3.7.4 : https://www.python.org/
 - Pygame 1.9.6 : https://www.pygame.org/
 
-# Installation et utilisation
-
+# Code source
 ## Dépôt
 L’ensemble du code source est hébergé sur la plateforme [GitHub](http://github.com). Le dépôt contenant ce code source est le suivant : https://github.com/GuillaumeOj/HelpMacGyver
-Pour récupérer ce code source, il y a deux possibilités :
-1. En cliquant sur « Clone or download » on télécharge l’ensemble du code source au format zip que l'on décompresse dans un dossier de notre choix :
 
-![Clone or Download source code](img/CloneDownloadSourceCode.png)
-
-2. Ou en utilisant le logiciel [Git](https://git-scm.com/) (voir l'[Aide](https://git-scm.com/doc) du logiciel). Dans une console, on se dirige sur le dossier de destination du code source puis on tape la commande suivante:
-```
-git clone git@github.com:GuillaumeOj/HelpMacGyver.git
-ou
-git clone https://github.com/GuillaumeOj/HelpMacGyver.git
-```
-
-## Installation
-Une fois le code source récupéré il reste l'installation du module `pygame`.
-Pour une bonne utilisation, il est conseillé d'utiliser un environnement virtuel tel que [Virtualenv](https://github.com/pypa/virtualenv) (voir la [documentation](https://virtualenv.pypa.io/en/latest/#)).
-Une fois que Vitualenv est installé, on se positionne sur le répertoire contenant le projet et on lance la commande suivante dans une console :
-```
-virtualenv -p python3 env
-```
-ou sur PowerShell:
-```powershell
-virtualenv -p $env:python3 env
-```
-Ensuite pour activer l'environnement virtuel on tape la commande suivante :
-```
-source env/bin/activate
-```
-ou sur PowerShell:
-```powershell
-.env/scripts/activate.ps1
-```
-Enfin, grâce au module `pip` on installe les modules nécessaires au fonctionnement du programme (*pygame*) :
-```
-pip install -r requirements.txt
-```
-
-## Exécution
-Pour exécuter le programme on lance la commande suivante dans une console :
-```
-python main.py
-```
-Toute les instructions d'installation sont récapitulées dans le fichier [readme.md](../readme.md) présent à la racine du code source.
-
-# Découpage du programme
+## Composition
 Le programme est constitué d'un script principal, `main.py`, qui fait appel à un package `src`.
 Ce package contient plusieurs modules contenant chacun une classe utile pour le jeu. Les classes utilisées sont les suivantes:
 - `maze` permettant la création et la gestion du labyrinthe dans une fenêtre.
@@ -97,8 +54,8 @@ Au final, l'arborescence du jeu ressemble à ceci:
     - character.py
     - panel.py
 
-# Déroulement du programme
-## Phase d'initialisation
+# Déroulement du jeu
+## Initialisation
 Suite à l'exécution de `main.py`, les actions suivantes vont se dérouler :
 
 1. Initialisation de la bibliothèque `pygame` essentielle à la création de l'affichage du jeu et la gestion des événements utilisateurs.
@@ -108,7 +65,7 @@ Suite à l'exécution de `main.py`, les actions suivantes vont se dérouler :
 5. Ensuite des objets sont générés et placés dans le labyrinthe. Le placement se fait aléatoirement grâce à l'utilisation du module `random` fourni avec Python.
 
 
-## Phase de mouvement
+## Mouvement
 Une fois ces premières étapes effectuées, le programme va surveiller et "capturer" les événements créés par la ou le joueu·r·se.
 - Lorsqu'elle ou il appuie sur `ESC` ou la croix de fermeture de la fenêtre, le jeu se ferme.
 - Lorsqu'elle ou il utilise les flêches directionnelles de son clavier, la mise en mouvement de MacGyver s'enclenchera.
