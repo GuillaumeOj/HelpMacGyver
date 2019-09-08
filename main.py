@@ -48,12 +48,16 @@ def start_game():
 
     # Create Mc Gyver
     macgyver = Character('macgyver.png', maze.start_rect)
+    macgyver.move_auth = True
     screen.blit(macgyver.image, macgyver.rect.topleft)
 
     # =========================
     # ===== CREATE ITEMS ======
+    # Delete former items (when reinit the game)
     if Item.items:
-        del Item.items
+        Item.items = list()
+
+    # Create three items
     Item('needle.png', maze.cells)
     Item('ether.png', maze.cells)
     Item('plastic_tube.png', maze.cells)
@@ -67,6 +71,15 @@ def start_game():
 
     return clock, mouse_position, screen, maze, panel, guardian, macgyver
 
+def clean_cells(screen, maze, character):
+    """
+        Little function for cleaning the maze when the character move
+    """
+
+    cells = maze.clean_cell(character)
+    for cell in cells:
+        screen.blit(cell['texture'], cell['rect'].topleft)
+
 def main(): # pylint: disable=too-many-branches
     """
     Main part of the game is in this main function
@@ -78,8 +91,11 @@ def main(): # pylint: disable=too-many-branches
         if game_new:
             clock, mouse_position, screen, maze, panel, guardian, macgyver = start_game()
             game_new = False
-        # Handle events
+
+        # Keep the key pressed
         key = pygame.key.get_pressed()
+
+        # Look for events
         for event in pygame.event.get():
             # If the player used the 'cross' or 'escape', the game closed
             if event.type == pygame.QUIT or key[pygame.K_ESCAPE]:
@@ -91,9 +107,7 @@ def main(): # pylint: disable=too-many-branches
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
 
             # Clean the old cell
-            clean_cells = maze.clean_cell(macgyver)
-            for cell in clean_cells:
-                screen.blit(cell['texture'], cell['rect'].topleft)
+            clean_cells(screen, maze, macgyver)
 
             # Move macgyver's position
             if macgyver.move_auth:
@@ -103,32 +117,27 @@ def main(): # pylint: disable=too-many-branches
             macgyver.pick_item(Item.items)
 
             # Clean the new cell (remove item when macgyver is ON the cell)
-            clean_cells = maze.clean_cell(macgyver)
-            for cell in clean_cells:
-                screen.blit(cell['texture'], cell['rect'].topleft)
+            clean_cells(screen, maze, macgyver)
 
-            # Store macgyver items in the stuff
-            if macgyver.items != []:
-                panel.store_items(macgyver.items)
-                screen.blit(panel.background, panel.rect.topleft)
             screen.blit(macgyver.image, macgyver.rect.topleft)
+
+        # Show macgyver items in the stuff
+        if macgyver.items != []:
+            panel.store_items(macgyver.items)
+            screen.blit(panel.background, panel.rect.topleft)
 
         # If the player reach the end of the maze he win
         if macgyver.rect.collidepoint(guardian.rect.center):
-            if Item.items == []:
-                panel.end_text('You win !')
-            else:
-                panel.end_text('You lose !')
             macgyver.move_auth = False
             screen.blit(panel.background, panel.rect.topleft)
-            panel.end_menu(screen)
+            panel.end_menu(screen, Item.items)
 
             pygame.mouse.set_visible(True)
 
-            if mouse_position and panel.yep.collidepoint(mouse_position):
-                game_new = True
-            if mouse_position and panel.nope.collidepoint(mouse_position):
-                return False
+        if mouse_position and panel.yep.collidepoint(mouse_position):
+            game_new = True
+        if mouse_position and panel.nope.collidepoint(mouse_position):
+            return False
 
         pygame.display.update()
 

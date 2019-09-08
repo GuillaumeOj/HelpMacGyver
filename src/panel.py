@@ -99,6 +99,13 @@ class Panel:
 
         pygame.font.quit()
 
+    def _end_text(self, text):
+        """
+            Print a text in the panel
+        """
+
+        self._create_font(text, 20, (self.rect.width / 2, self.rect.height / 2), True)
+
     def store_items(self, items):
         """
             Method called for store Mc Gyver items in the stuff
@@ -110,18 +117,16 @@ class Panel:
 
             self.background.blit(item.image, position)
 
-    def end_text(self, text):
-        """
-            Print a text in the panel
-        """
-
-        self._create_font(text, 20, (self.rect.width / 2, self.rect.height / 2), True)
-
-    def end_menu(self, screen):
+    def end_menu(self, screen, items):
         """
             Show a menu a the end of the game for asking the player
             if she/he wants to continue to play
         """
+
+        if items == []:
+            self._end_text('You win !')
+        else:
+            self._end_text('You lose !')
 
         self._create_font('Continue ?', 20, (self.rect.width / 2, self.rect.height - 150), True)
 
