@@ -1,6 +1,4 @@
 # Présentation
-Le but du projet est de réaliser un jeu de labyrinthe. Le joueur part d’un point de départ et doit arriver à la sortie du labyrinthe en ayant collecté un certain nombre d’objets sur son chemin afin de neutraliser le gardien situé à la sortie !
-Le jeu tourne autour de l’univers de MacGyver. Le joueur prend le contrôle du héros de la série.
 Le but du projet est de réaliser un jeu de labyrinthe. La ou le joueu·r·se part d’un point de départ et doit arriver à la sortie du labyrinthe en ayant collecté un certain nombre d’objets sur son chemin afin de neutraliser le gardien situé à la sortie !
 Le jeu tourne autour de l’univers de MacGyver. La ou le joueu·r·se prend le contrôle du héros de la série.
 
@@ -70,7 +68,7 @@ Pour exécuter le programme on lance la commande suivante dans une console :
 ```
 python main.py
 ```
-Toute les instructions d'installation sont récapitulées dans le fichier [readme.md](../readme.md) présent à la racine du code source.Toute les instructions d'installation sont récapitulées dans le fichier [readme.md](../readme.md) présent à la racine du code source.
+Toute les instructions d'installation sont récapitulées dans le fichier [readme.md](../readme.md) présent à la racine du code source.
 
 # Découpage du programme
 Le programme est constitué d'un script principal, `main.py`, qui fait appel à un package `src`.
