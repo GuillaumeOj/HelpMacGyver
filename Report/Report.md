@@ -107,3 +107,14 @@ Suite à l'exécution de `main.py`, les actions suivantes vont se dérouler :
 4. Création et placement des personnages à leurs places respectives (le gardien à la sortie et MacGyver au départ).
 5. Ensuite des objets sont générés et placés dans le labyrinthe. Le placement se fait aléatoirement grâce à l'utilisation du module `random` fourni avec Python.
 
+
+## Phase de mouvement
+Une fois ces premières étapes effectuées, le programme va surveiller et "capturer" les événements créés par la ou le joueu·r·se.
+- Lorsqu'elle ou il appuie sur `ESC` ou la croix de fermeture de la fenêtre, le jeu se ferme.
+- Lorsqu'elle ou il utilise les flêches directionnelles de son clavier, la mise en mouvement de MacGyver s'enclenchera.
+
+Les phases de mouvement enclenchent un certain nombre d'instructions :
+1. On efface MacGyver de son ancienne position
+2. On calcul la nouvelle position du héros dans le labyrinthe et on s'assure qu'il est autorisé à se déplacer dans cette direction (que ce ne soit pas un mur par exemple).
+3. Sur la nouvelle position du personnage, on vérifie si un objet se trouve dans la cellule. Si il y en a un, on l'ajoute dans la besace du héros.
+4. On affiche MacGyver à sa nouvelle position
