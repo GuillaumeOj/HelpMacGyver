@@ -1,90 +1,28 @@
-# Table des matières
-1. [Présentation](#présentation)
-2. [Code source](#code-source)
-3. [Déroulement du jeu](#déroulement-du-jeu)
-4. [Bilan](#bilan)
-
 # Présentation
 Le but du projet est de réaliser un jeu de labyrinthe. La ou le joueu·r·se part d’un point de départ et doit arriver à la sortie du labyrinthe en ayant collecté un certain nombre d’objets sur son chemin afin de neutraliser le gardien situé à la sortie !
 
 Le jeu tourne autour de l’univers de MacGyver. La ou le joueu·r·se prend le contrôle du héros de la série.
 
-## Ressources
-Ce jeu utilise des ressources graphiques, fournies en amont du projet, telles que des images des personnages, des textures pour le labyrinthe ainsi que les d’objets à collecter. Toutes ces ressources sont stockées dans le répertoire « ressources/» à la racine du projet.
-
-## Fonctionnalités
-Les fonctionnalités de base demandées dans le jeu sont les suivantes:
-
-- Le jeu comporte un seul niveau.
-- Le niveau est écrit dans un fichier facilement modifiable.
-- Le héros se déplace grâce aux flèches directionnelles du clavier.
-- Le labyrinthe a un format de 15x15 sprites (cases).
-- Les objets, que le héros collecte, sont placés de manière aléatoire dans le labyrinthe. Ainsi pour chaque partie les objets ne sont pas au même endroit.
-- Le héros ramasse les objets dès qu’il se trouve sur la même case que ceux-ci.
-- Si le héros se présente devant le gardien sans avoir collecté l’ensemble des objets, il perd la partie. Donc le héros gagne uniquement si il a tout les objets et qu’il trouve la sortie.
-- Le programme doit pouvoir s’exécuter sur n’importe quel ordinateur.
-
-## Technologies
-Il est demandé de réaliser le programme en utilisant **Python 3**.
-
-Le programme s'appuie aussi sur l’utilisation du module Pygame permettant la réalisation rapide de jeu avec le langage python (création de fenêtre graphique, gestion de la souris et du clavier, etc.).
-
-Dans le présent programme les versions utilisées sont :
-
-- Python 3.7.4 : https://www.python.org/
-- Pygame 1.9.6 : https://www.pygame.org/
-
-# Code source
-## Dépôt
-L’ensemble du code source est hébergé sur la plateforme [GitHub](http://github.com). Le dépôt contenant ce code source est le suivant : https://github.com/GuillaumeOj/HelpMacGyver
-
-## Composition
-Le programme est constitué d'un script principal, `main.py`, qui fait appel à un package `src`.
-
-Ce package contient plusieurs modules contenant chacun une classe utile pour le jeu. Les classes utilisées sont les suivantes:
-
-- `maze` permettant la création et la gestion du labyrinthe dans une fenêtre.
-- `character` utilisée pour la création de personnages (le gardien et MacGyver). Elle permet aussi de gérer le déplacement de celui-ci ainsi que le ramassage des objets.
-- `item` servant à la génération d'objets. Une méthode de la classe permet de placer aléatoirement les objets dans le labyrinthe.
-- `panel` qui est une classe "annexe" permettant l'affichage et la gestion du panneau situé à droite de la fenêtre de jeu (objets ramassés, message de victoire / défaite et menu de fin)
-
-Ces classes sont accompagnées d'un module de configuration du labyrinthe, `maze_config`. Ce module met à disposition des constantes (dimensions des cellules du labyrinthe, dimensions du labyrinte, vitesse de déplacement, etc.)
-
-Le fichier permettant de créer la structure du labyrinthe est stocké dans un répertoire `maps/` à la racine du projet. Ce fichier est nommé `level_1-1.txt`.
-
-Pour finir, les images utilisées au cours du jeu (textures du labyrinthe, personnages, objets) sont elles stockées dans le répertoire `ressources/`.
-
-Au final, l'arborescence du jeu ressemble à ceci:
-
-- main.py
-- maps/
-    - level_1-1.txt
-- ressources/
-    - ...
-- src/
-    - maze_config.py
-    - maze.py
-    - item.py
-    - character.py
-    - panel.py
+## Code source
+L’ensemble du code source est hébergé sur la plateforme [GitHub](http://github.com). Le dépôt contenant ce code source est le suivant : [https://github.com/GuillaumeOj/HelpMacGyver](https://github.com/GuillaumeOj/HelpMacGyver)
 
 # Déroulement du jeu
 ## Initialisation
 
-Suite à l'exécution de `main.py`, les actions suivantes vont se dérouler :
+Suite à l'exécution de **main.py**, les actions suivantes vont se dérouler :
 
-1. Initialisation de la bibliothèque `pygame` essentielle à la création de l'affichage du jeu et la gestion des événements utilisateurs.
+1. Initialisation de la bibliothèque **pygame** essentielle à la création de l'affichage du jeu et la gestion des événements utilisateurs.
 2. Génération et affichage du labyrinthe en se basant sur le fichier **.txt** préalablement écrit.
 3. Affichage du panneau d'affichage sur la droite du labyrinthe
 4. Création et placement des personnages à leurs places respectives (le gardien à la sortie et MacGyver au départ).
-5. Ensuite des objets sont générés et placés dans le labyrinthe. Le placement se fait aléatoirement grâce à l'utilisation du module `random` fourni avec Python.
+5. Ensuite des objets sont générés et placés dans le labyrinthe. Le placement se fait aléatoirement grâce à l'utilisation du module **random** fourni avec Python.
 
 
 ## Mouvement
 
 Une fois ces premières étapes effectuées, le programme va surveiller et "capturer" les événements créés par la ou le joueu·r·se.
 
-- Lorsqu'elle ou il appuie sur `ESC` ou la croix de fermeture de la fenêtre, le jeu se ferme.
+- Lorsqu'elle ou il appuie sur **ESC** ou la croix de fermeture de la fenêtre, le jeu se ferme.
 - Lorsqu'elle ou il utilise les flêches directionnelles de son clavier, la mise en mouvement de MacGyver s'enclenchera.
 
 La phase de mouvement enclenche un certain nombre d'instructions :
