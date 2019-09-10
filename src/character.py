@@ -16,37 +16,37 @@ class Character:
     def __init__(self, image_name, insert_rect):
         """
             Create each Attributes for the object:
-            - 'image'
-            - 'position'
-            - 'next_position' => usefull only for moving
-            - 'items' for all items picked up
-            - 'speed'
+                - 'image'
+                - 'position'
+                - 'items' for all items picked up
+                - 'move_auth' to authorize the character to moves
         """
 
         # Load the image
         self.image = load_image(image_name)
 
-        # Create 'image' with transparency
+        # Add transparency for 'image'
         self.image.set_colorkey((0, 0, 0))
+
+        # Transform the image to fit cell's width and height
         self.image = pygame.transform.scale(self.image, CHARACTER_SIZE)
 
         # Declare position (centered)
-        self.rect = self.image.get_rect()
-        move = ((insert_rect.w - self.rect.w) / 2 + insert_rect.left,
-                (insert_rect.h - self.rect.h) / 2 + insert_rect.top)
-        self.rect = self.image.get_rect().move(move)
+        self.rect = self.image.get_rect().move(insert_rect.topleft)
 
+        # Create a list to store each picked up items
         self.items = list()
 
-        # Authorize the character to move
+        # Authorize the character to move or not
         self.move_auth = False
 
     def  move(self, key, maze):
         """
-            Method for moving the character in the maze
+            Moving the character in the maze based on the keyboard's arrows
         """
         next_rect = False
 
+        # Create a new 'rect' based on wich key was pressed
         if key[pygame.K_DOWN] and self.rect.bottom < (MAZE_HEIGHT * CELL_HEIGHT):
             next_rect = self.rect.move(0, MOVE_SPEED_Y)
         elif key[pygame.K_UP] and self.rect.top > 0:
@@ -56,18 +56,17 @@ class Character:
         elif key[pygame.K_LEFT] and self.rect.left > 0:
             next_rect = self.rect.move(-MOVE_SPEED_X, 0)
 
+        # Detect if there any collision with maze's walls
         if next_rect:
             self.rect = maze.detect_collision(self.rect, next_rect)
 
     def pick_item(self, items):
         """
-            This method pick up items in the maze when the character is in the same cell
+            Pick up items in the maze when the character is on the same cell
         """
         for i, item in enumerate(items):
             if item.rect.colliderect(self.rect):
                 self.items.append(items.pop(i))
-
-        return items
 
 if __name__ == '__main__':
     print('Error, not the main file.')
