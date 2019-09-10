@@ -31,7 +31,7 @@ class Panel:
         pygame.draw.rect(self.background, (100, 47, 35), self.rect, 10)
         self.rect = self.rect.move(MAZE_WIDTH * CELL_WIDTH, 0)
 
-        self._create_font('Stuffs', 20, (self.rect.width / 2, 20), True)
+        self._create_text('Stuffs', 20, (self.rect.width / 2, 20), True)
 
         # Create a surface to stock all picked up items
         residue = (PANEL_WIDTH - STUFF_COLUMN * CELL_WIDTH) / (STUFF_COLUMN + 1)
@@ -68,7 +68,7 @@ class Panel:
         pygame.draw.rect(self.stuff, (63, 45, 42), slot)
 
 
-    def _create_font(self, text, size, position, center=False):
+    def _create_text(self, text, size, position, center=False):
         """
             This function create a text:
                 - Font type
@@ -99,12 +99,6 @@ class Panel:
 
         pygame.font.quit()
 
-    def _end_text(self, text):
-        """
-            Print a text in the panel
-        """
-
-        self._create_font(text, 20, (self.rect.width / 2, self.rect.height / 2), True)
 
     def store_items(self, items):
         """
@@ -122,13 +116,16 @@ class Panel:
             Show a menu a the end of the game for asking the player
             if she/he wants to continue to play
         """
-
+        # Show Win or Lose text
         if items == []:
-            self._end_text('You win !')
+            end_text = 'You win !'
         else:
-            self._end_text('You lose !')
+            end_text = 'You lose !'
 
-        self._create_font('Continue ?', 20, (self.rect.width / 2, self.rect.height - 150), True)
+        self._create_text(end_text, 20, (self.rect.width / 2, self.rect.height / 2), True)
+
+        # Show a end menu
+        self._create_text('Continue ?', 20, (self.rect.width / 2, self.rect.height - 150), True)
 
         # Create yes button
         self.yep = pygame.Rect(self.rect.x + 10,
@@ -136,7 +133,7 @@ class Panel:
                                self.rect.width - 20,
                                30)
         pygame.draw.rect(screen, (100, 47, 35), self.yep, 5)
-        self._create_font('Yes', 20, (self.rect.width / 2, self.rect.height - 85), True)
+        self._create_text('Yes', 20, (self.rect.width / 2, self.rect.height - 85), True)
 
         # Create no button
         self.nope = pygame.Rect(self.rect.x + 10,
@@ -144,7 +141,7 @@ class Panel:
                                 self.rect.width - 20,
                                 30)
         pygame.draw.rect(screen, (100, 47, 35), self.nope, 5)
-        self._create_font('No', 20, (self.rect.width / 2, self.rect.height - 45), True)
+        self._create_text('No', 20, (self.rect.width / 2, self.rect.height - 45), True)
 
 if __name__ == '__main__':
     print('Error, not the main file.')
