@@ -6,12 +6,11 @@ import os
 
 import pygame
 
-# pylint: disable=wildcard-import
-from .maze_config import * # pylint: disable=unused-wildcard-import
+from .maze_config import * # pylint: disable=wildcard-import, unused-wildcard-import
 
 class Panel:
     """
-        Configure and manage the right panel on th screen
+        Configure and manage the right panel on the screen
     """
 
     # List of slots
@@ -19,15 +18,22 @@ class Panel:
 
     def __init__(self):
         """
-            Create each attributes for the object:
-            - 'image'
-            - 'position'
+            Create each attributes for the panel:
+                - 'background'
+                - 'rect'
+                - 'stuff' an area to store character's items
+                - 'stuff_rect'
+                - 'yep' a yes button for the end menu
+                - 'nope' a no button for the end menu
         """
 
+        # Create a background with a specific color
         self.background = pygame.Surface((PANEL_WIDTH, CELL_HEIGHT * MAZE_HEIGHT))
         self.background.fill((159, 112, 76))
 
         self.rect = self.background.get_rect()
+
+        # Draw a border to the rect
         pygame.draw.rect(self.background, (100, 47, 35), self.rect, 10)
         self.rect = self.rect.move(MAZE_WIDTH * CELL_WIDTH, 0)
 
@@ -55,10 +61,10 @@ class Panel:
 
     def _stuff_slot(self, position):
         """
-            This method create stuff slot for a  given 'position'
+            Create stuff slot for a  given 'position'
         """
 
-        # Create a surface for the slot
+        # Create a rect for the slot
         slot = pygame.Rect(position, (CELL_WIDTH, CELL_HEIGHT))
 
         # Store the slot in a list
@@ -70,11 +76,7 @@ class Panel:
 
     def _create_text(self, text, size, position, center=False):
         """
-            This function create a text:
-                - Font type
-                - Font size
-                - Text
-                - Position
+            This function create a text a show it at a given position
         """
         pygame.font.init()
 
@@ -95,6 +97,7 @@ class Panel:
         else:
             font_rect = font.get_rect(position)
 
+        # Blit the font on the background
         self.background.blit(font, font_rect)
 
         pygame.font.quit()
@@ -102,7 +105,7 @@ class Panel:
 
     def store_items(self, items):
         """
-            Method called for store Mc Gyver items in the stuff
+            Store character's items in the stuff slots
         """
         for i, item in enumerate(items):
             slot = Panel.slots[i]
