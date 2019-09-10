@@ -6,6 +6,7 @@ import os
 
 import pygame
 
+from .util import load_image
 from .maze_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT
 
 
@@ -74,13 +75,7 @@ class Maze:
             Each textures are stored in a dictionnary
         """
         # Load the 'background.png' ressource
-        source = os.path.join('ressources', 'background.png')
-        try:
-            source = pygame.image.load(source)
-        except pygame.error:
-            # If someone move or delete the file
-            print(f'{source} was not found')
-
+        source = load_image('background.png')
 
         # Define a texture
         texture = pygame.Surface((20, 20))

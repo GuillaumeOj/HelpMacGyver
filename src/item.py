@@ -2,16 +2,15 @@
     Item module for the McGyver game
     It contain the class 'Item'
 """
-import os
 from random import randrange
 
 import pygame
 
+from .util import load_image
 from .maze_config import CELL_WIDTH, CELL_HEIGHT
 
 # For now, there is no public methods for 'Item' so we disable warnings for pylint
-# pylint: disable=too-few-public-methods
-class Item:
+class Item: # pylint: disable=too-few-public-methods
     """
         Define an item in the game
         And define a list of all items
@@ -20,30 +19,28 @@ class Item:
     # List of items
     items = list()
 
-    def __init__(self, image, maze_cells):
+    def __init__(self, image_name, maze_cells):
         """
-            Create each attributes for the object:
-            - 'name'
+            Create each attributes for the item:
             - 'image'
+            - 'name'
             - 'position'
         """
-        image = os.path.join('ressources', image)
-        try:
-            self.image = pygame.image.load(image)
-        except pygame.error:
-            # If someone move or delete the file
-            print(f'{image} was not found')
+
+        self.image = load_image(image_name)
 
         # Create 'image' with transparency
-        if 'ether' in image:
+        if 'ether' in image_name:
             self.name = 'ether'
             self.image.set_colorkey((1, 1, 1))
-        elif 'plastic_tube' in image:
+        elif 'plastic_tube' in image_name:
             self.name = 'plastic_tube'
             self.image.set_colorkey((255, 255, 255))
         else:
             self.name = 'needle'
             self.image.set_colorkey((0, 0, 0))
+
+        # Transform images to fit cell width and height
         self.image = pygame.transform.scale(self.image, (CELL_WIDTH, CELL_HEIGHT))
 
         # Define item position

@@ -2,10 +2,9 @@
     Character module for the McGyver game
     It contain the class 'Character'
 """
-import os
-
 import pygame
 
+from .util import load_image
 from .maze_config import * # pylint: disable=wildcard-import, unused-wildcard-import
 
 
@@ -14,7 +13,7 @@ class Character:
         Define a character in the game
     """
 
-    def __init__(self, image, insert_rect):
+    def __init__(self, image_name, insert_rect):
         """
             Create each Attributes for the object:
             - 'image'
@@ -25,12 +24,7 @@ class Character:
         """
 
         # Load the image
-        image = os.path.join('ressources', image)
-        try:
-            self.image = pygame.image.load(image)
-        except pygame.error:
-            # If someone move or delete the file
-            print(f'{image} was not found')
+        self.image = load_image(image_name)
 
         # Create 'image' with transparency
         self.image.set_colorkey((0, 0, 0))
