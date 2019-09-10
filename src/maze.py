@@ -12,25 +12,23 @@ from .maze_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT
 
 class Maze:
     """
-        Maze class for create a maze
-        Attributes:
-            - self.maze
-            - self.maze_texture
+        Define the maze for the game
     """
 
     def __init__(self, level):
         """
-            Read the level's file
-            Create the maze structure
-            Create the maze background
-            Create the maze position
-            Create the maze textures
-            Create a surface for erase a character
+            Create each attributes for the maze:
+                - 'maze' contain all the maze's structure
+                - 'background'
+                - 'rect'
+                - 'textures' contain all the textures used for the background
+                - 'cells' a list of cells composed by a name, a texture and a rect
+                - 'start_rect' is the maze's start
+                - 'end_rect' is the maze's end
         """
 
+        # Create the maze structure
         self.maze = list()
-        self.background = pygame.Surface((MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT))
-        self.rect = self.background.get_rect()
 
         # Path to the level file
         level = os.path.join('maps', level)
@@ -47,6 +45,8 @@ class Maze:
             # If someone move or delete the file
             print(f'{level} was not found')
 
+        self.background = pygame.Surface((MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT))
+        self.rect = self.background.get_rect()
 
         self.textures = dict()
 
@@ -68,66 +68,72 @@ class Maze:
                 self.end_rect = (cell['rect'])
 
 
-    def _create_texture(self, name, position):
+    def _create_texture(self, texture_name, texture_position):
         """
-            Method for creating a texture for each part of the maze
-            It use a generic file
-            Each textures are stored in a dictionnary
+            Create a texture with a name
         """
         # Load the 'background.png' ressource
         source = load_image('background.png')
 
-        # Define a texture
+        # Define a texture based on 'source'
         texture = pygame.Surface((20, 20))
-        texture.blit(source, (position))
+        texture.blit(source, (texture_position))
+
+        # Transform the surface to fit cells width and height
         texture = pygame.transform.scale(texture, (CELL_WIDTH, CELL_HEIGHT))
 
-        self.textures[name] = texture
+        # Add the texture to 'textures'
+        self.textures[texture_name] = texture
 
     def _generate_cells(self):
         """
-            This method generate all the maze's cells
+            Generate all the maze's cells based on 'maze'
         """
         for i, row in enumerate(self.maze):
-            for j, column in enumerate(row):
-                # Which type of texture ?
-                if column == '#':
+            for j, cell in enumerate(row):
+                # Define the texture name depend on cell content
+                if cell == '#':
                     texture = 'wall'
-                elif column == ' ':
+                elif cell == ' ':
                     texture = 'floor'
-                elif column == 'S':
+                elif cell == 'S':
                     texture = 'start'
                 else:
                     texture = 'end'
 
-                # Which position in the maze ?
+                # Define a cell's rect depend on cell position in 'maze'
                 cell_rect = pygame.Rect(j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT)
 
+                # Add the cell to 'cells'
+                # Each cell is define by a name, a texture and a rect
                 self.cells.append({'name': texture,
                                    'texture': self.textures[texture],
                                    'rect': cell_rect})
+
+                # Blit the cell to the background
                 self.background.blit(self.textures[texture], cell_rect.topleft)
 
     def detect_collision(self, old_rect, next_rect):
         """
-            Method for detecting collision
+            Detect collisions from a defined object with walls
         """
 
-        # Get next X and Y position in the maze to determine the nature (wall or floor ?)
+        # Detect if 'next_rect' collide with a wall
         for cell in self.cells:
             if cell['rect'].colliderect(next_rect) and cell['name'] == 'wall':
+                # If there is a collision, the 'next_rect' get 'old_rect' values
                 next_rect = old_rect
 
         return next_rect
 
-    def clean_cell(self, character):
+    def clean_cell(self, old_rect):
         """
-            Method for clean a cell at a specific position
+            Clean a cell at a specific position
         """
         cells_to_erase = list()
 
         for cell in self.cells:
-            if cell['rect'].colliderect(character.rect):
+            if cell['rect'].colliderect(old_rect):
                 cells_to_erase.append(cell)
 
         return cells_to_erase

@@ -71,12 +71,12 @@ def start_game():
 
     return clock, mouse_position, screen, maze, panel, guardian, macgyver
 
-def clean_cells(screen, maze, character):
+def clean_cells(screen, maze, rect):
     """
-        Little function for cleaning the maze when the character move
+        Clean the maze to a specific rect
     """
 
-    cells = maze.clean_cell(character)
+    cells = maze.clean_cell(rect)
     for cell in cells:
         screen.blit(cell['texture'], cell['rect'].topleft)
 
@@ -107,7 +107,7 @@ def main(): # pylint: disable=too-many-branches
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
 
             # Clean the old cell
-            clean_cells(screen, maze, macgyver)
+            clean_cells(screen, maze, macgyver.rect)
 
             # Move macgyver's position
             if macgyver.move_auth:
@@ -117,7 +117,7 @@ def main(): # pylint: disable=too-many-branches
             macgyver.pick_item(Item.items)
 
             # Clean the new cell (remove item when macgyver is ON the cell)
-            clean_cells(screen, maze, macgyver)
+            clean_cells(screen, maze, macgyver.rect)
 
             screen.blit(macgyver.image, macgyver.rect.topleft)
 
