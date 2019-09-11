@@ -38,35 +38,39 @@ class Panel:
         create_text('Stuffs', 20, (self.rect.width / 2, 20), self.background)
 
         # Create a surface to stock all picked up items
-        residue = (PANEL_WIDTH - STUFF_COLUMN * CELL_WIDTH) / (STUFF_COLUMN + 1)
-        stuff_width = STUFF_COLUMN * CELL_WIDTH + residue * (STUFF_COLUMN - 1)
-        stuff_height = STUFF_ROW * CELL_HEIGHT + residue * (STUFF_ROW - 1)
-        self.stuff = self.background.subsurface(residue, 50, stuff_width, stuff_height)
+        self.residue = (PANEL_WIDTH - STUFF_COLUMN * CELL_WIDTH) / (STUFF_COLUMN + 1)
+        stuff_width = STUFF_COLUMN * CELL_WIDTH + self.residue * (STUFF_COLUMN - 1)
+        stuff_height = STUFF_ROW * CELL_HEIGHT + self.residue * (STUFF_ROW - 1)
+
+        # Define the stuff surface
+        self.stuff = self.background.subsurface(self.residue, 50, stuff_width, stuff_height)
         self.stuff.fill((159, 112, 76))
 
         self.stuff_rect = self.stuff.get_rect()
 
-        # Create each slot
-        for row in range(STUFF_ROW):
-            for column in range(STUFF_COLUMN):
-                self._stuff_slot((column * (CELL_WIDTH + residue),
-                                  row * (CELL_HEIGHT + residue)))
+        # Create the stuff's slots
+        self._stuff_slots()
 
         # Menu buttons
         self.yep = False
         self.nope = False
 
-    def _stuff_slot(self, position):
+    def _stuff_slots(self):
         """
             Create stuff slot for a  given 'position'
         """
+        # Create each slot
+        for row in range(STUFF_ROW):
+            for column in range(STUFF_COLUMN):
+                position = ((column * (CELL_WIDTH + self.residue),
+                             row * (CELL_HEIGHT + self.residue)))
 
-        # Create a rect for the slot
-        slot = self.stuff.subsurface(position, (CELL_WIDTH, CELL_HEIGHT))
-        slot.fill((63, 45, 42))
+                # Create a rect for the slot
+                slot = self.stuff.subsurface(position, (CELL_WIDTH, CELL_HEIGHT))
+                slot.fill((63, 45, 42))
 
-        # Store the slot in a list
-        Panel.slots.append(slot)
+                # Store the slot in a list
+                Panel.slots.append(slot)
 
     def _create_button(self, text, position, size):
         """
@@ -88,6 +92,9 @@ class Panel:
             Store character's items in the stuff slots
         """
         if items:
+            # Erase the slots
+            self._stuff_slots()
+
             for i, item in enumerate(items):
                 slot = Panel.slots[i]
                 slot_dimension = slot.get_size()

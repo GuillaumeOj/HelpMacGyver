@@ -23,7 +23,6 @@ class Item: # pylint: disable=too-few-public-methods
         """
             Create each attributes for the item:
             - 'image'
-            - 'name'
             - 'position'
         """
 
@@ -31,14 +30,11 @@ class Item: # pylint: disable=too-few-public-methods
 
         # Create 'image' with transparency
         if 'ether' in image_name:
-            self.name = 'ether'
             self.image.set_colorkey((1, 1, 1))
-        elif 'plastic_tube' in image_name:
-            self.name = 'plastic_tube'
-            self.image.set_colorkey((255, 255, 255))
-        else:
-            self.name = 'needle'
+        elif 'needle' in image_name:
             self.image.set_colorkey((0, 0, 0))
+        else:
+            self.image.set_colorkey((255, 255, 255))
 
         # Transform images to fit cell width and height
         self.image = pygame.transform.scale(self.image, (CELL_WIDTH, CELL_HEIGHT))

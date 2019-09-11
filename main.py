@@ -118,6 +118,12 @@ def main(): # pylint: disable=too-many-branches
 
             screen.blit(macgyver.image, macgyver.rect.topleft)
 
+        # Create a syringe if all items are picked
+        if not Item.items:
+            Item('syringe.png', maze.cells)
+            macgyver.items = list()
+            macgyver.items.append(Item.items.pop(0))
+
         # Show macgyver items in the stuff
         panel.store_items(macgyver.items)
 
