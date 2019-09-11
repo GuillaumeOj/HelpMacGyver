@@ -108,8 +108,7 @@ def main(): # pylint: disable=too-many-branches
             clean_cells(screen, maze, macgyver.rect)
 
             # Move macgyver's position
-            if macgyver.move_auth:
-                macgyver.move(key, maze)
+            macgyver.move(key, maze)
 
             # Check if macgyver is on an item
             macgyver.pick_item(Item.items)

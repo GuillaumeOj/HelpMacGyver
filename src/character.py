@@ -46,15 +46,16 @@ class Character:
         """
         next_rect = False
 
-        # Create a new 'rect' based on wich key was pressed
-        if key[pygame.K_DOWN] and self.rect.bottom < (MAZE_HEIGHT * CELL_HEIGHT):
-            next_rect = self.rect.move(0, MOVE_SPEED_Y)
-        elif key[pygame.K_UP] and self.rect.top > 0:
-            next_rect = self.rect.move(0, -MOVE_SPEED_Y)
-        elif key[pygame.K_RIGHT] and self.rect.right < (MAZE_WIDTH * CELL_WIDTH):
-            next_rect = self.rect.move(MOVE_SPEED_X, 0)
-        elif key[pygame.K_LEFT] and self.rect.left > 0:
-            next_rect = self.rect.move(-MOVE_SPEED_X, 0)
+        if self.move_auth:
+            # Create a new 'rect' based on wich key was pressed
+            if key[pygame.K_DOWN] and self.rect.bottom < (MAZE_HEIGHT * CELL_HEIGHT):
+                next_rect = self.rect.move(0, MOVE_SPEED_Y)
+            elif key[pygame.K_UP] and self.rect.top > 0:
+                next_rect = self.rect.move(0, -MOVE_SPEED_Y)
+            elif key[pygame.K_RIGHT] and self.rect.right < (MAZE_WIDTH * CELL_WIDTH):
+                next_rect = self.rect.move(MOVE_SPEED_X, 0)
+            elif key[pygame.K_LEFT] and self.rect.left > 0:
+                next_rect = self.rect.move(-MOVE_SPEED_X, 0)
 
         # Detect if there any collision with maze's walls
         if next_rect:
@@ -64,9 +65,10 @@ class Character:
         """
             Pick up items in the maze when the character is on the same cell
         """
-        for i, item in enumerate(items):
-            if item.rect.colliderect(self.rect):
-                self.items.append(items.pop(i))
+        if items:
+            for i, item in enumerate(items):
+                if item.rect.colliderect(self.rect):
+                    self.items.append(items.pop(i))
 
 if __name__ == '__main__':
     print('Error, not the main file.')
