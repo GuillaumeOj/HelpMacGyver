@@ -16,6 +16,9 @@ MAZE_HEIGHT = 15
 # Configure the right panel width
 PANEL_WIDTH = 200
 
+# Define the panel position on the screen
+PANEL_X = MAZE_WIDTH * CELL_WIDTH
+
 # Define the size of the screen
 SCREEN_SIZE = ((MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH),
                (MAZE_HEIGHT * CELL_HEIGHT))

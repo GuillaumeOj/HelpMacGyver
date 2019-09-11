@@ -9,7 +9,6 @@
     This game is a project from OpenClassrooms:
     - https://openclassrooms.com/fr/projects/156/assignment
 """
-
 import pygame
 
 from src import * # pylint: disable=wildcard-import, unused-wildcard-import
@@ -37,8 +36,7 @@ def start_game():
 
     # =========================
     # === CREATE THE PANEL ====
-    panel = Panel()
-    screen.blit(panel.background, panel.rect.topleft)
+    panel = Panel(screen)
 
     # =========================
     # = CREATE THE CHARACTERS =
@@ -122,25 +120,22 @@ def main(): # pylint: disable=too-many-branches
             screen.blit(macgyver.image, macgyver.rect.topleft)
 
         # Show macgyver items in the stuff
-        if macgyver.items != []:
-            panel.store_items(macgyver.items)
-            screen.blit(panel.background, panel.rect.topleft)
+        panel.store_items(macgyver.items)
 
         # If the player reach the end of the maze he win
-        if macgyver.rect.collidepoint(guardian.rect.center):
+        if macgyver.rect.collidepoint(guardian.rect.center) and not (panel.yep or panel.nope):
             macgyver.move_auth = False
-            screen.blit(panel.background, panel.rect.topleft)
-            panel.end_menu(screen, Item.items)
+            panel.end_menu(Item.items)
 
             pygame.mouse.set_visible(True)
 
-        if mouse_position and panel.yep.collidepoint(mouse_position):
-            game_new = True
-        if mouse_position and panel.nope.collidepoint(mouse_position):
-            return False
+        if mouse_position and (panel.yep or panel.nope):
+            if panel.yep.collidepoint(mouse_position):
+                game_new = True
+            if panel.nope.collidepoint(mouse_position):
+                return False
 
         pygame.display.update()
-
         # Used for macgyver don't run in the maze
         clock.tick(FPS)
 

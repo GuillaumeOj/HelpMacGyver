@@ -2,10 +2,9 @@
     Panel module for the McGyver game
     It contain the class 'Panel' for manage the panel on the right side
 """
-import os
-
 import pygame
 
+from .util import create_text
 from .maze_config import * # pylint: disable=wildcard-import, unused-wildcard-import
 
 class Panel:
@@ -16,7 +15,7 @@ class Panel:
     # List of slots
     slots = list()
 
-    def __init__(self):
+    def __init__(self, screen):
         """
             Create each attributes for the panel:
                 - 'background'
@@ -28,32 +27,30 @@ class Panel:
         """
 
         # Create a background with a specific color
-        self.background = pygame.Surface((PANEL_WIDTH, CELL_HEIGHT * MAZE_HEIGHT))
+        self.background = screen.subsurface(PANEL_X, 0, PANEL_WIDTH, CELL_HEIGHT * MAZE_HEIGHT)
         self.background.fill((159, 112, 76))
 
         self.rect = self.background.get_rect()
 
         # Draw a border to the rect
         pygame.draw.rect(self.background, (100, 47, 35), self.rect, 10)
-        self.rect = self.rect.move(MAZE_WIDTH * CELL_WIDTH, 0)
 
-        self._create_text('Stuffs', 20, (self.rect.width / 2, 20), True)
+        create_text('Stuffs', 20, (self.rect.width / 2, 20), self.background)
 
         # Create a surface to stock all picked up items
         residue = (PANEL_WIDTH - STUFF_COLUMN * CELL_WIDTH) / (STUFF_COLUMN + 1)
-        self.stuff = pygame.Surface((STUFF_COLUMN * CELL_WIDTH + residue * (STUFF_COLUMN - 1),
-                                     STUFF_ROW * CELL_HEIGHT + residue * (STUFF_ROW - 1)))
+        stuff_width = STUFF_COLUMN * CELL_WIDTH + residue * (STUFF_COLUMN - 1)
+        stuff_height = STUFF_ROW * CELL_HEIGHT + residue * (STUFF_ROW - 1)
+        self.stuff = self.background.subsurface(residue, 50, stuff_width, stuff_height)
         self.stuff.fill((159, 112, 76))
 
-        self.stuff_rect = self.stuff.get_rect().move(residue, 50)
+        self.stuff_rect = self.stuff.get_rect()
 
         # Create each slot
         for row in range(STUFF_ROW):
             for column in range(STUFF_COLUMN):
                 self._stuff_slot((column * (CELL_WIDTH + residue),
                                   row * (CELL_HEIGHT + residue)))
-
-        self.background.blit(self.stuff, self.stuff_rect.topleft)
 
         # Menu buttons
         self.yep = False
@@ -65,86 +62,66 @@ class Panel:
         """
 
         # Create a rect for the slot
-        slot = pygame.Rect(position, (CELL_WIDTH, CELL_HEIGHT))
+        slot = self.stuff.subsurface(position, (CELL_WIDTH, CELL_HEIGHT))
+        slot.fill((63, 45, 42))
 
         # Store the slot in a list
         Panel.slots.append(slot)
 
-        # Blit the 'slot' with the 'background'
-        pygame.draw.rect(self.stuff, (63, 45, 42), slot)
-
-
-    def _create_text(self, text, size, position, center=False):
+    def _create_button(self, text, position, size):
         """
-            This function create a text a show it at a given position
+            Create a button to interact with the player
         """
-        pygame.font.init()
+        button = self.background.subsurface(position, size)
+        button_rect = button.get_rect()
 
-        # Find the font in 'ressources/'
-        font_src = os.path.join('ressources', 'ka1.ttf')
+        create_text(text, 20, button_rect.topleft, button, True)
 
-        # Load the font
-        try:
-            font = pygame.font.Font(font_src, size)
-        except FileNotFoundError:
-            # If someone move or delete the file
-            print(f'{font_src} was not found')
+        pygame.draw.rect(button, (100, 47, 35), button_rect, 5)
 
-        # Render the font
-        font = font.render(text, True, (100, 47, 35))
-        if center:
-            font_rect = font.get_rect(center=position)
-        else:
-            font_rect = font.get_rect(position)
-
-        # Blit the font on the background
-        self.background.blit(font, font_rect)
-
-        pygame.font.quit()
+        button_abs_rect = button_rect.move(button.get_abs_offset())
+        return button_abs_rect
 
 
     def store_items(self, items):
         """
             Store character's items in the stuff slots
         """
-        for i, item in enumerate(items):
-            slot = Panel.slots[i]
+        if items:
+            for i, item in enumerate(items):
+                slot = Panel.slots[i]
+                slot_dimension = slot.get_size()
+                slot_position = slot.get_offset()
+                slot_surface = self.stuff.subsurface(slot_position, slot_dimension)
 
-            position = (slot.x + self.stuff_rect.x, slot.y + self.stuff_rect.y)
+                slot_surface.blit(item.image, (0, 0))
 
-            self.background.blit(item.image, position)
-
-    def end_menu(self, screen, items):
+    def end_menu(self, items):
         """
             Show a menu a the end of the game for asking the player
             if she/he wants to continue to play
         """
-        # Show Win or Lose text
+        # Show a Win or Lose text
         if items == []:
             end_text = 'You win !'
         else:
             end_text = 'You lose !'
-
-        self._create_text(end_text, 20, (self.rect.width / 2, self.rect.height / 2), True)
+        create_text(end_text,
+                    20,
+                    (self.rect.width / 2, self.rect.height / 2),
+                    self.background)
 
         # Show a end menu
-        self._create_text('Continue ?', 20, (self.rect.width / 2, self.rect.height - 150), True)
+        create_text('Continue ?',
+                    20,
+                    (self.rect.width / 2, self.rect.height - 150),
+                    self.background)
 
         # Create yes button
-        self.yep = pygame.Rect(self.rect.x + 10,
-                               self.rect.height - 100,
-                               self.rect.width - 20,
-                               30)
-        pygame.draw.rect(screen, (100, 47, 35), self.yep, 5)
-        self._create_text('Yes', 20, (self.rect.width / 2, self.rect.height - 85), True)
+        self.yep = self._create_button('Yes', (10, 350), (180, 30))
 
         # Create no button
-        self.nope = pygame.Rect(self.rect.x + 10,
-                                self.rect.height - 60,
-                                self.rect.width - 20,
-                                30)
-        pygame.draw.rect(screen, (100, 47, 35), self.nope, 5)
-        self._create_text('No', 20, (self.rect.width / 2, self.rect.height - 45), True)
+        self.nope = self._create_button('No', (10, 400), (180, 30))
 
 if __name__ == '__main__':
     print('Error, not the main file.')
