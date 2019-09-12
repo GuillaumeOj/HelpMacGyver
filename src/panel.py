@@ -7,7 +7,7 @@ import pygame
 from .util import create_text
 from .maze_config import * # pylint: disable=wildcard-import, unused-wildcard-import
 
-class Panel: # pylint: disable=too-few-public-methods
+class Panel:
     """
         Configure and manage the right panel on the screen
     """
