@@ -34,5 +34,10 @@ CHARACTER_SIZE = (CELL_WIDTH, CELL_HEIGHT)
 MOVE_SPEED_X = CELL_WIDTH
 MOVE_SPEED_Y = CELL_HEIGHT
 
+# Colors
+LIGHT_BROWN = (159, 112, 76)
+BROWN = (100, 47, 35)
+DARK_BROWN = (63, 45, 42)
+
 if __name__ == '__main__':
     print('Error, not the main file.')
