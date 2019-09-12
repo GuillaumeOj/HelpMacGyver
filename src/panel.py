@@ -7,7 +7,7 @@ import pygame
 from .util import create_text
 from .maze_config import * # pylint: disable=wildcard-import, unused-wildcard-import
 
-class Panel:
+class Panel: # pylint: disable=too-few-public-methods
     """
         Configure and manage the right panel on the screen
     """
@@ -51,10 +51,6 @@ class Panel:
         # Create the stuff's slots
         self._stuff_slots()
 
-        # Menu buttons
-        self.yep = False
-        self.nope = False
-
     def _stuff_slots(self):
         """
             Create stuff slot for a  given 'position'
@@ -72,21 +68,6 @@ class Panel:
                 # Store the slot in a list
                 Panel.slots.append(slot)
 
-    def _create_button(self, text, position, size):
-        """
-            Create a button to interact with the player
-        """
-        button = self.background.subsurface(position, size)
-        button_rect = button.get_rect()
-
-        create_text(text, 20, button_rect.topleft, button, True)
-
-        pygame.draw.rect(button, (100, 47, 35), button_rect, 5)
-
-        button_abs_rect = button_rect.move(button.get_abs_offset())
-        return button_abs_rect
-
-
     def store_items(self, items):
         """
             Store character's items in the stuff slots
@@ -102,33 +83,6 @@ class Panel:
                 slot_surface = self.stuff.subsurface(slot_position, slot_dimension)
 
                 slot_surface.blit(item.image, (0, 0))
-
-    def end_menu(self, items):
-        """
-            Show a menu a the end of the game for asking the player
-            if she/he wants to continue to play
-        """
-        # Show a Win or Lose text
-        if items == []:
-            end_text = 'You win !'
-        else:
-            end_text = 'You lose !'
-        create_text(end_text,
-                    20,
-                    (self.rect.width / 2, self.rect.height / 2),
-                    self.background)
-
-        # Show a end menu
-        create_text('Continue ?',
-                    20,
-                    (self.rect.width / 2, self.rect.height - 150),
-                    self.background)
-
-        # Create yes button
-        self.yep = self._create_button('Yes', (10, 350), (180, 30))
-
-        # Create no button
-        self.nope = self._create_button('No', (10, 400), (180, 30))
 
 if __name__ == '__main__':
     print('Error, not the main file.')

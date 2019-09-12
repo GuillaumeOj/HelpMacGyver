@@ -37,6 +37,8 @@ def start_game():
     # =========================
     # === CREATE THE PANEL ====
     panel = Panel(screen)
+    yep = False
+    nope = False
 
     # =========================
     # = CREATE THE CHARACTERS =
@@ -67,7 +69,7 @@ def start_game():
     # Update the screen
     pygame.display.update()
 
-    return clock, mouse_position, screen, maze, panel, guardian, macgyver
+    return clock, mouse_position, screen, maze, panel, guardian, macgyver, yep, nope
 
 def clean_cells(screen, maze, rect):
     """
@@ -78,6 +80,49 @@ def clean_cells(screen, maze, rect):
     for cell in cells:
         screen.blit(cell['texture'], cell['rect'].topleft)
 
+def end_menu(items, surface):
+    """
+        Show a menu a the end of the game for asking the player
+        if she/he wants to continue to play
+    """
+    # Show a Win or Lose text
+    if items == []:
+        end_text = 'You win !'
+    else:
+        end_text = 'You lose !'
+    create_text(end_text,
+                20,
+                (surface.rect.width / 2, surface.rect.height / 2),
+                surface.background)
+
+    # Show a end menu
+    create_text('Continue ?',
+                20,
+                (surface.rect.width / 2, surface.rect.height - 150),
+                surface.background)
+
+    # Create yes button
+    yep = create_button('Yes', (10, 350), (180, 30), surface)
+
+    # Create no button
+    nope = create_button('No', (10, 400), (180, 30), surface)
+
+    return yep, nope
+
+def create_button(text, position, size, surface):
+    """
+        Create a button to interact with the player
+    """
+    button = surface.background.subsurface(position, size)
+    button_rect = button.get_rect()
+
+    create_text(text, 20, button_rect.topleft, button, True)
+
+    pygame.draw.rect(button, (100, 47, 35), button_rect, 5)
+
+    button_abs_rect = button_rect.move(button.get_abs_offset())
+    return button_abs_rect
+
 def main(): # pylint: disable=too-many-branches
     """
     Main part of the game is in this main function
@@ -87,7 +132,7 @@ def main(): # pylint: disable=too-many-branches
 
     while True:
         if game_new:
-            clock, mouse_position, screen, maze, panel, guardian, macgyver = start_game()
+            clock, mouse_position, screen, maze, panel, guardian, macgyver, yep, nope = start_game()
             game_new = False
 
         # Keep the key pressed
@@ -98,7 +143,7 @@ def main(): # pylint: disable=too-many-branches
             # If the player used the 'cross' or 'escape', the game closed
             if event.type == pygame.QUIT or key[pygame.K_ESCAPE]:
                 return False
-            if panel.yep and panel.nope and event.type == pygame.MOUSEBUTTONDOWN:
+            if yep and nope and event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_position = event.pos
 
         # If player press an arrow on keyboard, we move 'macgyver'
@@ -128,16 +173,16 @@ def main(): # pylint: disable=too-many-branches
         panel.store_items(macgyver.items)
 
         # If the player reach the end of the maze he win
-        if macgyver.rect.collidepoint(guardian.rect.center) and not (panel.yep or panel.nope):
+        if macgyver.rect.collidepoint(guardian.rect.center) and not (yep or nope):
             macgyver.move_auth = False
-            panel.end_menu(Item.items)
+            yep, nope = end_menu(Item.items, panel)
 
             pygame.mouse.set_visible(True)
 
-        if mouse_position and (panel.yep or panel.nope):
-            if panel.yep.collidepoint(mouse_position):
+        if mouse_position and (yep or nope):
+            if yep.collidepoint(mouse_position):
                 game_new = True
-            if panel.nope.collidepoint(mouse_position):
+            if nope.collidepoint(mouse_position):
                 return False
 
         pygame.display.update()
