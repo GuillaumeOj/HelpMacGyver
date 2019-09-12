@@ -9,6 +9,8 @@
     This game is a project from OpenClassrooms:
     - https://openclassrooms.com/fr/projects/156/assignment
 """
+import os
+
 import pygame
 
 from src import * # pylint: disable=wildcard-import, unused-wildcard-import
@@ -17,12 +19,23 @@ def start_game():
     """
         This function allow to start the game at the begining
     """
-
     pygame.init()
     clock = pygame.time.Clock()
+
+    pygame.font.init()
+
+    # Find the font in 'ressources/'
+    font_src = os.path.join('ressources', 'ka1.ttf')
+
+    # Load the font
+    try:
+        font_ka1 = pygame.font.Font(font_src, 20)
+    except FileNotFoundError:
+        # If someone move or delete the file
+        print(f'{font_src} was not found')
+
     # Hide the mouse because it's useless
     pygame.mouse.set_visible(False)
-    mouse_position = False
 
     # Set the window caption better than default
     pygame.display.set_caption('== Help Mc gyver == V 0.0.1 ==')
@@ -36,9 +49,7 @@ def start_game():
 
     # =========================
     # === CREATE THE PANEL ====
-    panel = Panel(screen)
-    yep = False
-    nope = False
+    panel = Panel(screen, font_ka1)
 
     # =========================
     # = CREATE THE CHARACTERS =
@@ -69,7 +80,7 @@ def start_game():
     # Update the screen
     pygame.display.update()
 
-    return clock, mouse_position, screen, maze, panel, guardian, macgyver, yep, nope
+    return clock, screen, maze, panel, guardian, macgyver, font_ka1
 
 def clean_cells(screen, maze, rect):
     """
@@ -80,50 +91,7 @@ def clean_cells(screen, maze, rect):
     for cell in cells:
         screen.blit(cell['texture'], cell['rect'].topleft)
 
-def end_menu(items, surface):
-    """
-        Show a menu a the end of the game for asking the player
-        if she/he wants to continue to play
-    """
-    # Show a Win or Lose text
-    if items == []:
-        end_text = 'You win !'
-    else:
-        end_text = 'You lose !'
-    create_text(end_text,
-                20,
-                (surface.rect.width / 2, surface.rect.height / 2),
-                surface.background)
-
-    # Show a end menu
-    create_text('Continue ?',
-                20,
-                (surface.rect.width / 2, surface.rect.height - 150),
-                surface.background)
-
-    # Create yes button
-    yep = create_button('Yes', (10, 350), (180, 30), surface)
-
-    # Create no button
-    nope = create_button('No', (10, 400), (180, 30), surface)
-
-    return yep, nope
-
-def create_button(text, position, size, surface):
-    """
-        Create a button to interact with the player
-    """
-    button = surface.background.subsurface(position, size)
-    button_rect = button.get_rect()
-
-    create_text(text, 20, button_rect.topleft, button, True)
-
-    pygame.draw.rect(button, (100, 47, 35), button_rect, 5)
-
-    button_abs_rect = button_rect.move(button.get_abs_offset())
-    return button_abs_rect
-
-def main(): # pylint: disable=too-many-branches
+def main():
     """
     Main part of the game is in this main function
     """
@@ -132,7 +100,8 @@ def main(): # pylint: disable=too-many-branches
 
     while True:
         if game_new:
-            clock, mouse_position, screen, maze, panel, guardian, macgyver, yep, nope = start_game()
+            clock, screen, maze, panel, guardian, macgyver, font_ka1 = start_game()
+            mouse_position = False
             game_new = False
 
         # Keep the key pressed
@@ -143,10 +112,10 @@ def main(): # pylint: disable=too-many-branches
             # If the player used the 'cross' or 'escape', the game closed
             if event.type == pygame.QUIT or key[pygame.K_ESCAPE]:
                 return False
-            if yep and nope and event.type == pygame.MOUSEBUTTONDOWN:
+            if panel.yep and panel.nope and event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_position = event.pos
 
-        # If player press an arrow on keyboard, we move 'macgyver'
+        # If player press an arrow on keyboard, macgyver move
         if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
 
             # Clean the old cell
@@ -161,6 +130,7 @@ def main(): # pylint: disable=too-many-branches
             # Clean the new cell (remove item when macgyver is ON the cell)
             clean_cells(screen, maze, macgyver.rect)
 
+            # Blit MacGyver on the new cell
             screen.blit(macgyver.image, macgyver.rect.topleft)
 
         # Create a syringe if all items are picked
@@ -169,25 +139,34 @@ def main(): # pylint: disable=too-many-branches
             macgyver.items = list()
             macgyver.items.append(Item.items.pop(0))
 
-        # Show macgyver items in the stuff
+        # Show macgyver's items in the stuff
         panel.store_items(macgyver.items)
 
-        # If the player reach the end of the maze he win
-        if macgyver.rect.collidepoint(guardian.rect.center) and not (yep or nope):
+        # If the player reach the end of the maze the game is over
+        if macgyver.rect.collidepoint(guardian.rect.center):
+            # MacGyver can't move anymore
             macgyver.move_auth = False
-            yep, nope = end_menu(Item.items, panel)
 
+            # Add an end message and a menu in the panel
+            panel.end_message(Item.items, font_ka1)
+            panel.end_menu(font_ka1)
+
+            # Enable the mouse visibilty for using the menu
             pygame.mouse.set_visible(True)
 
-        if mouse_position and (yep or nope):
-            if yep.collidepoint(mouse_position):
-                game_new = True
-            if nope.collidepoint(mouse_position):
-                return False
+            # Check if the player click on a button
+            if mouse_position:
+                if panel.yep_abs_rect.collidepoint(mouse_position):
+                    game_new = True
+                if panel.nope_abs_rect.collidepoint(mouse_position):
+                    return False
 
         pygame.display.update()
-        # Used for macgyver don't run in the maze
+
+        # Used for macgyver don't run in the maze :)
         clock.tick(FPS)
+
+    pygame.quit()
 
 if __name__ == '__main__':
     main()
