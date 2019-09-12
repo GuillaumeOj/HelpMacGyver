@@ -5,7 +5,7 @@
 import pygame
 
 from .util import load_image
-from .maze_config import * # pylint: disable=wildcard-import, unused-wildcard-import
+from .game_config import * # pylint: disable=wildcard-import, unused-wildcard-import
 
 
 class Character:

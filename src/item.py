@@ -7,7 +7,7 @@ from random import randrange
 import pygame
 
 from .util import load_image
-from .maze_config import CELL_WIDTH, CELL_HEIGHT
+from .game_config import CELL_WIDTH, CELL_HEIGHT
 
 # For now, there is no public methods for 'Item' so we disable warnings for pylint
 class Item: # pylint: disable=too-few-public-methods

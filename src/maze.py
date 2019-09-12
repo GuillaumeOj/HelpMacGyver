@@ -7,7 +7,7 @@ import os
 import pygame
 
 from .util import load_image
-from .maze_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT
+from .game_config import CELL_WIDTH, CELL_HEIGHT, MAZE_WIDTH, MAZE_HEIGHT
 
 
 class Maze:
