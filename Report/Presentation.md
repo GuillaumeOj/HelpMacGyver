@@ -21,3 +21,18 @@
 - Création panneau latéral
 - Création et placement des personnages
 - Création et placement des objets
+
+## Phase de mouvement
+
+- Capture des événements clavier
+- Effacement de MacGyver
+- Cacul de la nouvelle position => Vérification des collisions
+- Vérification des objets
+- Affichage de MacGyver à la nouvelle position
+
+## Fin du jeu
+
+- Lorsque MacGyver atteint la sortie
+- Vérification des conditions de victoire
+- Affichage d'un message à droite
+- Affichage d'un menu de fin
