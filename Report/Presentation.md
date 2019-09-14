@@ -25,9 +25,9 @@
 ## Phase de mouvement
 
 - Capture des événements clavier
-- Effacement de MacGyver
+- Suppresion de MacGyver à l'affichage
 - Calcul de la nouvelle position => Vérification des collisions
-- Vérification des objets
+- Rammassage des objets
 - Affichage de MacGyver à la nouvelle position
 
 ## Fin du jeu
