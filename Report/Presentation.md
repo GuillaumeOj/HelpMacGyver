@@ -26,7 +26,7 @@
 
 - Capture des événements clavier
 - Effacement de MacGyver
-- Cacul de la nouvelle position => Vérification des collisions
+- Calcul de la nouvelle position => Vérification des collisions
 - Vérification des objets
 - Affichage de MacGyver à la nouvelle position
 
@@ -36,3 +36,7 @@
 - Vérification des conditions de victoire
 - Affichage d'un message à droite
 - Affichage d'un menu de fin
+
+## Fin
+
+Merci pour votre attention
