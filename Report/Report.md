@@ -52,7 +52,7 @@ Cependant je me suis rapidement aperçu que les bases ne suffisaient pas pour, p
 
 Pour remédier à cela j'ai pris le temps d'approfondir la lecture de la documentation de la bibliothèque, je me suis inspiré de parties de codes réalisées par d'autres utilisateurs et j'ai fait des recherches sur des points précis (comment réaliser un bouton par exemple).
 
-## Limite de prestation
+## Limite de préstation
 Même si les instructions de l'énoncé sont assez claire, j'ai eu beaucoup de mal à m'arrêter dans la réalisation du jeu. En effet, je suis parti dans une sorte de folie des grandeurs et j'ai voulu ajouter beaucoup plus de fonctions que celles demandées.
 
 J'ai donc pris le temps de mettre à jour la To Do list écrite dans le 'Readme.md' en m'accordant l'ajout de certaines fonctionnalités, telles que l'affichage des objets ramassés sur le côté et le menu de fin permettant de continuer à jouer.
