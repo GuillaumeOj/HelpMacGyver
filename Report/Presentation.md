@@ -37,6 +37,26 @@
 - Affichage d'un message à droite
 - Affichage d'un menu de fin
 
+# Bilan du projet
+
+## Pygame
+
+- Apprentissage rapide
+- Approfondissement au fur et à mesure
+- Améliorations possible de l'utilisation
+
+## Limites de préstation
+
+- Premier projet, on veut toujours en faire trop
+- Déterminer le Minimal Viable Product
+- Avoir une To Do List compléte et s'y tenir
+
+## Cohérence et propreté du code
+
+- Grosse évolution sur la façon de coder et commenter
+- S'assurer de la cohérence entre le début et la fin du projet
+- Maintenir un code propre et lisible pour la maintenance
+
 ## Fin
 
 Merci pour votre attention
