@@ -1,10 +1,13 @@
 """
     This is a maze game based on Python and using 'Pygame'
 
-    The aim is to help MacGyver to escape from a maze. The exit is kept by an evil bodyguard.
+    The aim is to help MacGyver to escape from a maze.
+    The exit is kept by an evil bodyguard.
     To neutralize the guard, the player must pick up some items in the maze.
-    If MacGyver meet the guardian without those items, he dies. Else, he completes the level.
-    For moving MacGyver in the maze, the player use the arrows on her/his keyboard.
+    If MacGyver meet the guardian without those items, he dies.
+    Else, he completes the level.
+    For moving MacGyver in the maze, the player use the arrows on her/his
+    keyboard.
 
     This game is a project from OpenClassrooms:
     - https://openclassrooms.com/fr/projects/156/assignment
