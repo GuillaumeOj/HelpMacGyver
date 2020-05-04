@@ -5,7 +5,8 @@
 import pygame
 
 from .util import create_text
-from .game_config import * # pylint: disable=wildcard-import, unused-wildcard-import
+from .game_config import *  # pylint: disable=wildcard-import, unused-wildcard-import
+
 
 class Panel:
     """
@@ -27,7 +28,9 @@ class Panel:
         """
 
         # Create a background with a specific color
-        self.background = screen.subsurface(PANEL_X, 0, PANEL_WIDTH, CELL_HEIGHT * MAZE_HEIGHT)
+        self.background = screen.subsurface(
+            PANEL_X, 0, PANEL_WIDTH, CELL_HEIGHT * MAZE_HEIGHT
+        )
         self.background.fill(LIGHT_BROWN)
 
         self.rect = self.background.get_rect()
@@ -35,7 +38,9 @@ class Panel:
         # Draw a border to the rect
         pygame.draw.rect(self.background, BROWN, self.rect, 10)
 
-        create_text('Stuffs', font, BROWN, (self.rect.width / 2, 20), self.background, )
+        create_text(
+            "Stuffs", font, BROWN, (self.rect.width / 2, 20), self.background,
+        )
 
         # Create a surface to stock all picked up items
         self.residue = (PANEL_WIDTH - STUFF_COLUMN * CELL_WIDTH) / (STUFF_COLUMN + 1)
@@ -43,7 +48,9 @@ class Panel:
         stuff_height = STUFF_ROW * CELL_HEIGHT + self.residue * (STUFF_ROW - 1)
 
         # Define the stuff surface
-        self.stuff = self.background.subsurface(self.residue, 50, stuff_width, stuff_height)
+        self.stuff = self.background.subsurface(
+            self.residue, 50, stuff_width, stuff_height
+        )
         self.stuff_rect = self.stuff.get_rect()
 
         # Create the stuff's slots
@@ -59,8 +66,10 @@ class Panel:
         # Create each slot
         for row in range(STUFF_ROW):
             for column in range(STUFF_COLUMN):
-                position = ((column * (CELL_WIDTH + self.residue),
-                             row * (CELL_HEIGHT + self.residue)))
+                position = (
+                    column * (CELL_WIDTH + self.residue),
+                    row * (CELL_HEIGHT + self.residue),
+                )
 
                 # Create a rect for the slot
                 slot = self.stuff.subsurface(position, (CELL_WIDTH, CELL_HEIGHT))
@@ -130,25 +139,29 @@ class Panel:
         """
         # Show a Win or Lose text
         if items == []:
-            end_text = 'You win !'
+            end_text = "You win !"
         else:
-            end_text = 'You lose !'
+            end_text = "You lose !"
 
-        create_text(end_text,
-                    font,
-                    BROWN,
-                    (self.rect.width / 2, self.rect.height / 2),
-                    self.background)
+        create_text(
+            end_text,
+            font,
+            BROWN,
+            (self.rect.width / 2, self.rect.height / 2),
+            self.background,
+        )
 
     def end_menu(self, font):
         """
             Create a menu for asking the player if she/he wants continue to play
         """
-        create_text('Continue ?',
-                    font,
-                    BROWN,
-                    (self.rect.width / 2, self.rect.height - 150),
-                    self.background)
+        create_text(
+            "Continue ?",
+            font,
+            BROWN,
+            (self.rect.width / 2, self.rect.height - 150),
+            self.background,
+        )
 
         # Create yes button
         self.yep = self._create_button((10, 350), (180, 30))
@@ -161,8 +174,10 @@ class Panel:
         self._hover_button(self.nope, self.nope_abs_rect)
 
         # Create button's text after the hover effect
-        create_text('Yes', font, LIGHT_BROWN, self.yep_abs_rect.topleft, self.yep, True)
-        create_text('No', font, LIGHT_BROWN, self.nope_abs_rect.topleft, self.nope, True)
+        create_text("Yes", font, LIGHT_BROWN, self.yep_abs_rect.topleft, self.yep, True)
+        create_text("No", font, LIGHT_BROWN, self.nope_abs_rect.topleft, self.nope, True)
 
-if __name__ == '__main__':
-    print('Error, not the main file.')
+
+if __name__ == "__main__":
+    print("Error, not the main file.")
+

@@ -5,7 +5,7 @@
 import pygame
 
 from .util import load_image
-from .game_config import * # pylint: disable=wildcard-import, unused-wildcard-import
+from .game_config import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 
 class Character:
@@ -40,7 +40,7 @@ class Character:
         # Authorize the character to move or not
         self.move_auth = False
 
-    def  move(self, key, maze):
+    def move(self, key, maze):
         """
             Moving the character in the maze based on the keyboard's arrows
         """
@@ -70,5 +70,7 @@ class Character:
                 if item.rect.colliderect(self.rect):
                     self.items.append(items.pop(i))
 
-if __name__ == '__main__':
-    print('Error, not the main file.')
+
+if __name__ == "__main__":
+    print("Error, not the main file.")
+

@@ -20,8 +20,7 @@ PANEL_WIDTH = 200
 PANEL_X = MAZE_WIDTH * CELL_WIDTH
 
 # Define the size of the screen
-SCREEN_SIZE = ((MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH),
-               (MAZE_HEIGHT * CELL_HEIGHT))
+SCREEN_SIZE = ((MAZE_WIDTH * CELL_WIDTH + PANEL_WIDTH), (MAZE_HEIGHT * CELL_HEIGHT))
 
 # Configure the stuff size
 STUFF_ROW = 2
@@ -39,5 +38,5 @@ LIGHT_BROWN = (159, 112, 76)
 BROWN = (100, 47, 35)
 DARK_BROWN = (63, 45, 42)
 
-if __name__ == '__main__':
-    print('Error, not the main file.')
+if __name__ == "__main__":
+    print("Error, not the main file.")

@@ -5,19 +5,21 @@ import os
 
 import pygame
 
+
 def load_image(image_name):
     """
         This function load an image as a Pygame Surface
     """
 
-    image_path = os.path.join('ressources', image_name)
+    image_path = os.path.join("ressources", image_name)
     try:
         image = pygame.image.load(image_path)
     except pygame.error:
         # If someone move or delete the file
-        print(f'{image_path} was not found')
+        print(f"{image_path} was not found")
 
     return image
+
 
 # pylint: disable=too-many-arguments
 def create_text(input_text, font, color, position, surface, button=False):
@@ -33,4 +35,6 @@ def create_text(input_text, font, color, position, surface, button=False):
         text_rect.center = surface.get_rect().center
 
     surface.blit(text, text_rect)
+
+
 # pylint: enable=too-many-arguments

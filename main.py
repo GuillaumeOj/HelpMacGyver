@@ -16,7 +16,8 @@ import os
 
 import pygame
 
-from src import * # pylint: disable=wildcard-import, unused-wildcard-import
+from src import *  # pylint: disable=wildcard-import, unused-wildcard-import
+
 
 def start_game():
     """
@@ -28,26 +29,26 @@ def start_game():
     pygame.font.init()
 
     # Find the font in 'ressources/'
-    font_src = os.path.join('ressources', 'ka1.ttf')
+    font_src = os.path.join("ressources", "ka1.ttf")
 
     # Load the font
     try:
         font_ka1 = pygame.font.Font(font_src, 20)
     except FileNotFoundError:
         # If someone move or delete the file
-        print(f'{font_src} was not found')
+        print(f"{font_src} was not found")
 
     # Hide the mouse because it's useless
     pygame.mouse.set_visible(False)
 
     # Set the window caption better than default
-    pygame.display.set_caption('== Help Mc gyver == V 0.0.1 ==')
+    pygame.display.set_caption("== Help Mc gyver == V 0.0.1 ==")
 
     screen = pygame.display.set_mode(SCREEN_SIZE)
 
     # =========================
     # ==== CREATE THE MAZE ====
-    maze = Maze('level_1-1.txt')
+    maze = Maze("level_1-1.txt")
     screen.blit(maze.background, maze.rect.topleft)
 
     # =========================
@@ -57,11 +58,11 @@ def start_game():
     # =========================
     # = CREATE THE CHARACTERS =
     # Create the guardian
-    guardian = Character('guardian.png', maze.end_rect)
+    guardian = Character("guardian.png", maze.end_rect)
     screen.blit(guardian.image, guardian.rect.topleft)
 
     # Create Mc Gyver
-    macgyver = Character('macgyver.png', maze.start_rect)
+    macgyver = Character("macgyver.png", maze.start_rect)
     macgyver.move_auth = True
     screen.blit(macgyver.image, macgyver.rect.topleft)
 
@@ -72,9 +73,9 @@ def start_game():
         Item.items = list()
 
     # Create three items
-    Item('needle.png', maze.cells)
-    Item('ether.png', maze.cells)
-    Item('plastic_tube.png', maze.cells)
+    Item("needle.png", maze.cells)
+    Item("ether.png", maze.cells)
+    Item("plastic_tube.png", maze.cells)
 
     # Blit each item on the screen
     for item in Item.items:
@@ -85,6 +86,7 @@ def start_game():
 
     return clock, screen, maze, panel, guardian, macgyver, font_ka1
 
+
 def clean_cells(screen, maze, rect):
     """
         Clean the maze to a specific rect
@@ -92,7 +94,8 @@ def clean_cells(screen, maze, rect):
 
     cells = maze.clean_cell(rect)
     for cell in cells:
-        screen.blit(cell['texture'], cell['rect'].topleft)
+        screen.blit(cell["texture"], cell["rect"].topleft)
+
 
 def main():
     """
@@ -119,7 +122,12 @@ def main():
                 mouse_position = event.pos
 
         # If player press an arrow on keyboard, macgyver move
-        if key[pygame.K_DOWN] or key[pygame.K_UP] or key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
+        if (
+            key[pygame.K_DOWN]
+            or key[pygame.K_UP]
+            or key[pygame.K_LEFT]
+            or key[pygame.K_RIGHT]
+        ):
 
             # Clean the old cell
             clean_cells(screen, maze, macgyver.rect)
@@ -138,7 +146,7 @@ def main():
 
         # Create a syringe if all items are picked
         if not Item.items:
-            Item('syringe.png', maze.cells)
+            Item("syringe.png", maze.cells)
             macgyver.items = list()
             macgyver.items.append(Item.items.pop(0))
 
@@ -171,5 +179,6 @@ def main():
 
     pygame.quit()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

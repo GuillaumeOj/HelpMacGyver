@@ -10,7 +10,7 @@ from .util import load_image
 from .game_config import CELL_WIDTH, CELL_HEIGHT
 
 # For now, there is no public methods for 'Item' so we disable warnings for pylint
-class Item: # pylint: disable=too-few-public-methods
+class Item:  # pylint: disable=too-few-public-methods
     """
         Define an item in the game
         And define a list of all items
@@ -29,9 +29,9 @@ class Item: # pylint: disable=too-few-public-methods
         self.image = load_image(image_name)
 
         # Create 'image' with transparency
-        if 'ether' in image_name:
+        if "ether" in image_name:
             self.image.set_colorkey((1, 1, 1))
-        elif 'needle' in image_name:
+        elif "needle" in image_name:
             self.image.set_colorkey((0, 0, 0))
         else:
             self.image.set_colorkey((255, 255, 255))
@@ -57,7 +57,7 @@ class Item: # pylint: disable=too-few-public-methods
             self.cell = self.maze_cells[randrange(len(self.maze_cells))]
 
             # If the cell is'nt a floor
-            if self.cell['name'] != 'floor':
+            if self.cell["name"] != "floor":
                 self.cell = False
 
             # If there already items stored we compare them
@@ -67,10 +67,9 @@ class Item: # pylint: disable=too-few-public-methods
                     if self.cell == item.cell:
                         self.cell = False
 
-
-        self.rect = self.cell['rect']
-
+        self.rect = self.cell["rect"]
 
 
-if __name__ == '__main__':
-    print('Error, not the main file.')
+if __name__ == "__main__":
+    print("Error, not the main file.")
+

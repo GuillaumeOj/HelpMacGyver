@@ -31,29 +31,31 @@ class Maze:
         self.maze = list()
 
         # Path to the level file
-        level = os.path.join('maps', level)
+        level = os.path.join("maps", level)
 
         # Load the level '.txt' file and store it in a double list
         try:
-            with open(level, mode='r') as file:
+            with open(level, mode="r") as file:
                 # Read the file
                 data = file.read()
 
                 # Store the maze in a double list
-                self.maze = [list(row) for row in data.split('\n')]
+                self.maze = [list(row) for row in data.split("\n")]
         except FileNotFoundError:
             # If someone move or delete the file
-            print(f'{level} was not found')
+            print(f"{level} was not found")
 
-        self.background = pygame.Surface((MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT))
+        self.background = pygame.Surface(
+            (MAZE_WIDTH * CELL_WIDTH, MAZE_HEIGHT * CELL_HEIGHT)
+        )
         self.rect = self.background.get_rect()
 
         self.textures = dict()
 
-        self._create_texture('wall', (-20 * 9, 0))
-        self._create_texture('floor', (0, -20 * 4))
-        self._create_texture('start', (-20 * 4, -20 * 5))
-        self._create_texture('end', (-20 * 8, -20 * 1))
+        self._create_texture("wall", (-20 * 9, 0))
+        self._create_texture("floor", (0, -20 * 4))
+        self._create_texture("start", (-20 * 4, -20 * 5))
+        self._create_texture("end", (-20 * 8, -20 * 1))
 
         # Initialize a list of maze cells
         self.cells = list()
@@ -62,18 +64,17 @@ class Maze:
 
         # Define start and end position
         for cell in self.cells:
-            if cell['name'] == 'start':
-                self.start_rect = (cell['rect'])
-            elif cell['name'] == 'end':
-                self.end_rect = (cell['rect'])
-
+            if cell["name"] == "start":
+                self.start_rect = cell["rect"]
+            elif cell["name"] == "end":
+                self.end_rect = cell["rect"]
 
     def _create_texture(self, texture_name, texture_position):
         """
             Create a texture with a name
         """
         # Load the 'background.png' ressource
-        source = load_image('background.png')
+        source = load_image("background.png")
 
         # Define a texture based on 'source'
         texture = pygame.Surface((20, 20))
@@ -92,23 +93,29 @@ class Maze:
         for i, row in enumerate(self.maze):
             for j, cell in enumerate(row):
                 # Define the texture name depend on cell content
-                if cell == '#':
-                    texture = 'wall'
-                elif cell == ' ':
-                    texture = 'floor'
-                elif cell == 'S':
-                    texture = 'start'
+                if cell == "#":
+                    texture = "wall"
+                elif cell == " ":
+                    texture = "floor"
+                elif cell == "S":
+                    texture = "start"
                 else:
-                    texture = 'end'
+                    texture = "end"
 
                 # Define a cell's rect depend on cell position in 'maze'
-                cell_rect = pygame.Rect(j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT)
+                cell_rect = pygame.Rect(
+                    j * CELL_WIDTH, i * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT
+                )
 
                 # Add the cell to 'cells'
                 # Each cell is define by a name, a texture and a rect
-                self.cells.append({'name': texture,
-                                   'texture': self.textures[texture],
-                                   'rect': cell_rect})
+                self.cells.append(
+                    {
+                        "name": texture,
+                        "texture": self.textures[texture],
+                        "rect": cell_rect,
+                    }
+                )
 
                 # Blit the cell to the background
                 self.background.blit(self.textures[texture], cell_rect.topleft)
@@ -120,7 +127,7 @@ class Maze:
 
         # Detect if 'next_rect' collide with a wall
         for cell in self.cells:
-            if cell['rect'].colliderect(next_rect) and cell['name'] == 'wall':
+            if cell["rect"].colliderect(next_rect) and cell["name"] == "wall":
                 # If there is a collision, the 'next_rect' get 'old_rect' values
                 next_rect = old_rect
 
@@ -133,11 +140,11 @@ class Maze:
         cells_to_erase = list()
 
         for cell in self.cells:
-            if cell['rect'].colliderect(old_rect):
+            if cell["rect"].colliderect(old_rect):
                 cells_to_erase.append(cell)
 
         return cells_to_erase
 
 
-if __name__ == '__main__':
-    print('Error, not the main file.')
+if __name__ == "__main__":
+    print("Error, not the main file.")
