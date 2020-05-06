@@ -7,8 +7,10 @@ verify_ssl = true
 black = "*"
 
 [packages]
-pygame = "~=1.9.6"
-pylint = "~=2.4.4"
+pygame = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
